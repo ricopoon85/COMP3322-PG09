@@ -1,30 +1,26 @@
-import React, { useState } from 'react'
+import React from 'react'
+import Header from './components/Header'
+
 import './App.css'
 
 function App() {
   return (
     <div className="page-container">
-      <header className="horizontal-layout">
-        <h1 className="app-name">Note taking app</h1>
-        <p>Note Name</p>
-      </header>
-
+      <Header />
       <div className="content">
-        <aside>
-          <p>Navigation</p>
-          <ul>
-            <li>Home</li>
-            <li>Notes</li>
-            <li>Settings</li>
+        <aside className="sidebar">
+          <p>Your notes</p>
+          <ul className="note-list">
+            {}
           </ul>
         </aside>
-        <main>
+        <main className="main-content">
           <p>Welcome to the Note taking app</p>
         </main>
       </div>
 
-      <footer>
-        <p>COMP3322 Group 9</p>
+      <footer className="footer">
+        <p>COMP3322 Group Project - Group 9</p>
       </footer>
     </div>
   )

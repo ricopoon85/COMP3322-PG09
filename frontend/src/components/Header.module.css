@@ -1,0 +1,16 @@
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--color-accent);
+  background-color: var(--color-surface-raised);
+  padding: var(--space-sm) var(--space-md);
+}
+
+.title {
+  margin: 0;
+  color: var(--color-text);
+  font-size: 1.25rem;
+  white-space: nowrap;
+}

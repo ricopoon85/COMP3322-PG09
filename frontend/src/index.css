@@ -7,18 +7,23 @@ html, body, #root {
 :root {
   font-family: system-ui, sans-serif;
   font-size: 16px;
-  display: flex;
-  flex-direction: column;
   height: 100vh;
 
-  --bg-color-1: #1a1a1a;
-  --bg-color-2: #2a2a2a;
-  --bg-color-25: #313131;
-  --bg-color-3: #3a3a3a;
-  --fg-color: #f0f0f0;
-  --accent-color: #572598;
+  --color-background: #1a1a1a;
+  --color-surface: #2a2a2a;
+  --color-surface-raised: #3a3a3a;
+  --color-surface-muted: #313131;
+  --color-text: #f0f0f0;
+  --color-text-muted: #7a7a7a;
+  --color-accent: #572598;
+  --color-input-background: #242424;
+  --color-input-border: #5b5b5b;
 
-  --footer-color: #7a7a7a;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --radius-sm: 6px;
 }
 
 #root {
@@ -46,8 +51,8 @@ html, body, #root {
 
 body {
   margin: 0;
-  color: var(--fg-color);
-  background: var(--bg-color-1);
+  color: var(--color-text);
+  background: var(--color-background);
 }
 
 * {
