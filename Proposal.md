@@ -43,4 +43,24 @@
 
 ---
 
-## 7. 
+## 7. High-level Workplace Description
+
+1. User opens the app and lands on our login/signup page. [To be added later]
+2. After logging in, users enters the homepage with a list of their stored notes.
+3. User can:
+   * Create a new note: The note editor opens. User enters title and content, and the note saves real-time.
+   * Select & edit an existing note (can be shared): The note editor opens and reflects user's changes immediately.
+   * Import notes: Opens file explorer on device. User selects a file and a note, and the file's content is copied to the note.  [To be added later]
+   * Share a note: Opens a share popup in which user enters target's email. User can also set permissions (edit/view) for target. [To be added later]
+   * View a shared note: The note viewer opens, if origin user granted permission to view only. [To be added later]
+
+---
+
+## 8. Anticipated Learning Challenges & Self‑assessment
+
+
+
+
+
+
+
