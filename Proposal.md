@@ -25,8 +25,13 @@
 
 ## 6. Problem & Target User Context
 
-Heavy note-takers, such as students and professionals, often face the problem of managing scattered notes across all kinds of media, from paper to tablets.
-Our team intends to solve this by producing a lightweight web platform which allows users to create
+### Real-life Problems
+
+Heavy note-takers often have the difficulty in managing scattered notes across all kinds of media, from paper to tablets. This can cause problems like wasted time for searching and information loss. </br>
+Our team intends to solve this by producing a lightweight web application which allows users to create and store their notes, all in one place. </br>
+In the future, we plan to add various functions including cloud sync, so that users can share their notes and contribute to them directly on the platform.
+
+
 
 Our group intends to create a lightweight web platform which allows users to:
 * gather 
