@@ -1,16 +1,46 @@
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
 :root {
   font-family: system-ui, sans-serif;
-  color: #982598;
-  background: #15173d;
   font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+  --bg-color-1: #1a1a1a;
+  --bg-color-2: #2a2a2a;
+  --bg-color-3: #2e2e2e;
+  --fg-color: #f0f0f0;
+  --accent-color: #572598;
+
+  --footer-color: #7a7a7a;
 }
 
 #root {
   width: 100%;
 }
 
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+}
+
 body {
   margin: 0;
+  color: var(--fg-color);
+  background: var(--bg-color-1);
 }
 
 * {
