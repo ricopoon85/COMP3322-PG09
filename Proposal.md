@@ -27,7 +27,11 @@
 
 ### Real-life Problems
 
-Heavy note-takers often have the difficulty in managing scattered notes across all kinds of media, from paper to tablets. This can cause problems like wasted time for searching and information loss. </br>
+* Heavy note-takers, such as students and professionals, often have the difficulty in managing scattered notes across all kinds of media, from paper to tablets. </br>
+This can cause problems like wasted time for searching and information loss. </br>
+* Besides, these groups often handle collaborative tasks, and they require an accessible method to share instructions and other information with their colleagues. </br?
+
+
 Our team intends to solve this by producing a lightweight web application which allows users to create and store their notes, all in one place. </br>
 In the future, we plan to add various functions including cloud sync, so that users can share their notes and contribute to them directly on the platform.
 
