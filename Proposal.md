@@ -18,3 +18,15 @@
 | Frontend Development & UI Design | Lam Cheung Lam, Lin Chuen Ching |
 | Backend API Development & Integration | Tam Ho Chun, Lo Kwok Ming |
 | Database Schema Design | Poon Wing Lok |
+
+---
+
+---
+
+## 6. Problem & Target User Context
+
+Heavy note-takers, such as students and professionals, often face the problem of managing scattered notes across all kinds of media, from paper to tablets.
+Our team intends to solve this by producing a lightweight web platform which allows users to create
+
+Our group intends to create a lightweight web platform which allows users to:
+* gather 
