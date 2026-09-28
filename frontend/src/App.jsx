@@ -1,5 +1,8 @@
 import React from 'react'
 import Header from './components/Header'
+import Sidebar from './components/Sidebar'
+import Editor from './components/Editor'
+import Footer from './components/Footer'
 
 import './App.css'
 
@@ -8,20 +11,10 @@ function App() {
     <div className="page-container">
       <Header />
       <div className="content">
-        <aside className="sidebar">
-          <p>Your notes</p>
-          <ul className="note-list">
-            {}
-          </ul>
-        </aside>
-        <main className="main-content">
-          <p>Welcome to the Note taking app</p>
-        </main>
+        <Sidebar />
+        <Editor />
       </div>
-
-      <footer className="footer">
-        <p>COMP3322 Group Project - Group 9</p>
-      </footer>
+      <Footer />
     </div>
   )
 }
