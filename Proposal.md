@@ -27,16 +27,20 @@
 
 ### Real-life Problems
 
-- Heavy note-takers, such as students and professionals, often have the difficulty in managing scattered notes across all kinds of media, from paper to tablets.
-This can cause problems like wasted time for searching and information loss.</br>
-- Besides, these groups often handle collaborative tasks, and they require an accessible method to share instructions and other information with their colleagues.</br>
+* Heavy note-takers, such as students and professionals, often struggle to manage scattered notes across all kinds of media, from paper to tablets.
+  This leads to wasted time searching and a high risk of information loss.
+* These groups also handle collaborative tasks, and they need an accessible method to share instructions and important information with colleagues.</br>
 
-* Our team intends to solve these problems by producing a lightweight web application which allows users to create and store their notes, all in one place.</br>
-* In the future, we will enable cloud sync, so that users can share and co-edit directly on the platform.
-We also plan to let the application read various input (such as .txt, .pdf, and scanned files) into the notes.</br>
+- Our group aims to address these problems by developing a lightweight web application which allows users to create and store all their notes in one place.
+- In future editions, we plan to add cloud synchronization for real-time sharing and co-editing.
+  The app will also be able to read uploaded files (such as .txt, .pdf, and scanned documents) and copy their contents directly into notes.
 
 ### Target Users & Fits
 
-* Students:
-* Professionals:
-* Casual users:
+* Students: Store class schedules, lecture highlights, handwritten notes in one place. No more wasting time searching across devices or transferring files manually.
+* Professionals: Use shared notes as a space where project team members can easily retrieve / add insights and resources, which allows smoother collaboration.
+* Casual users: Put scattered shopping lists, phone memos, and random notes into one organized hub. This saves space and keeps everything tidy.
+
+---
+
+## 7. 
