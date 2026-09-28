@@ -7,8 +7,8 @@ USE notes_app;
 
 CREATE TABLE users (
   id INT AUTO_INCREMENT PRIMARY KEY,    -- Unique ID for each user
-  name VARCHAR(25) NOT NULL,           -- User's name
-  email VARCHAR(50) UNIQUE NOT NULL,   -- User's email (must be unique)
+  name VARCHAR(25) NOT NULL,            -- User's name
+  email VARCHAR(50) UNIQUE NOT NULL,    -- User's email (must be unique)
   password_hash VARCHAR(255) NOT NULL   -- Hashed password for security
 );
 
