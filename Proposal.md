@@ -1,4 +1,4 @@
-# COMP3322 Project Proposal
+# COMP3322 GP09 Project Proposal
 
 ## 1. Group Information
 
