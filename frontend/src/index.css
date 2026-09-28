@@ -13,7 +13,8 @@ html, body, #root {
 
   --bg-color-1: #1a1a1a;
   --bg-color-2: #2a2a2a;
-  --bg-color-3: #2e2e2e;
+  --bg-color-25: #313131;
+  --bg-color-3: #3a3a3a;
   --fg-color: #f0f0f0;
   --accent-color: #572598;
 
@@ -35,6 +36,12 @@ html, body, #root {
   display: flex;
   flex-direction: row;
   flex-grow: 1;
+}
+
+.horizontal-layout {
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
 body {
