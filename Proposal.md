@@ -71,15 +71,16 @@ are finished
 
 | Step | Main Page | User Action | App Response | Note |
 | :--- | :--- | :--- | :--- | :--- |
-| 1. | N/A | Open app | Shows login / signup page |
-| 2. | Login / Signup | Sign in | Displays homepage with stored notes |
-| 3. | Home | (Various actions) | (Opens various pages. See below) |
-| |
-| a) | Note editor | Create / edit note | Saves note in real time |
-| b) | Sidebar | Click x to delete note | Removes note from list |
-| c) | File explorer (device) | Select file to import | Copies content to note | (to be added) |
-| d) | Share popup | Enter email & set permissions | Shares note to collaborator | (to be added) |
-| e) | Note viewer | Open shared note | Displays content (without edit permission) | (to be added) |
+| 1. | N/A | Open app | Shows login / signup page |  |
+| 2. | Login / Signup | Sign in | Displays homepage with stored notes |  |
+| 3. | Home | (Various actions) | (Opens various pages. See below) |  |
+|  |  |  |  |  |
+| a) | Note editor | Create / edit note | Saves note in real time |  |
+| b) | Sidebar | Click "x" to delete note | Removes note from list |  |
+| c) | Sidebar | Click "+ New" button | Creates a new note |  |
+| d) | File explorer (device) | Select file to import | Copies content to note | (to be added) |
+| e) | Share popup | Enter email & set permissions | Shares note to collaborator | (to be added) |
+| f) | Note viewer | Open shared note | Displays content (without edit permission) | (to be added) |
 
 (Subject to changes)
 
