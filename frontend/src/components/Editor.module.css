@@ -1,17 +1,34 @@
 .editor {
   display: flex;
+  flex-direction: column;
   flex: 1;
   min-width: 0;
-  min-height: 0;
-  overflow: hidden;
   padding: var(--space-lg);
+  background-color: var(--color-background);
+  gap: var(--space-md);
+}
+
+.titleInput {
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--color-input-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  background-color: var(--color-input-background);
+  font: inherit;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.titleInput:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-accent) 35%, transparent);
 }
 
 .textarea {
   flex: 1;
-  width: 100%;
-  min-height: 0;
-  resize: none;
+  min-height: 280px;
+  resize: vertical;
   padding: var(--space-md);
   border: 1px solid var(--color-input-border);
   border-radius: var(--radius-sm);
@@ -19,11 +36,6 @@
   background-color: var(--color-input-background);
   font: inherit;
   line-height: 1.5;
-  transition: border-color 150ms ease, box-shadow 150ms ease;
-}
-
-.textarea::placeholder {
-  color: var(--color-text-muted);
 }
 
 .textarea:focus {
