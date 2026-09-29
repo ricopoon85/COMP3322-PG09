@@ -1,23 +1,27 @@
-# [Web Note-taking Hub] - COMP3322 PG09 Project Proposal
+# Web Note Hub - COMP3322 PG09 Project Proposal
 
 
 ---
 
-## 1. Group Information
+## 1. Member Information & Preliminary Task Allocation
 
-* **Poon Wing Lok** - UID: 3036239267
-* **Tam Ho Chun** - UID: 3036218342
-* **Lam Cheung Lam** - UID: 3036220498
-* **Lin Chuen Ching** - UID: 3035922996
-* **Lo Kwok Ming** - UID: 3036067004
+| Name | UID | Tasks |
+| :--- | :--- | :--- |
+| **Poon Wing Lok** | 3036239267 | Database schema design, proposal writing |
+| **Tam Ho Chun** | 3036218342 | Backend API development & integration |
+| **Lo Kwok Ming** | 3036067004 | Backend API development & integration |
+| **Lam Cheung Lam** | 3036220498 | Frontend development & UI design |
+| **Lin Chuen Ching** | 3035922996 | Frontend development & UI design, proposal writing |
+| |
+| **All members** | | Documentation, testing, version control, deployment, presentation |
 
 ---
 
 
 ## 2. Project Description
 
-[One paragraph summarizing your project and identifying your target
-end‑users]
+Our group's lightweight web application aims to allow users, especially students and professionals, to create and manage all their notes in one place.
+Users may also collaborate on notes with each other by using the app's sharing function.
 
 ---
 
@@ -27,11 +31,7 @@ end‑users]
 
 * Heavy note-takers, such as students and professionals, often struggle to manage scattered notes across all kinds of media, from paper to tablets.
   This leads to wasted time searching and a high risk of information loss.
-* These groups also handle collaborative tasks, and they need an accessible method to share instructions and important information with colleagues.</br>
-
-- Our group aims to address these problems by developing a lightweight web application which allows users to create and store all their notes in one place.
-
-
+* They also need to handle collaborative tasks, raising the demand for an accessible way to share instructions and important information with colleagues.
 
 ### 3.2 Target Users & Web-based Benefits
 
@@ -41,10 +41,6 @@ end‑users]
   - Benefit: Smoother collaboration flow and enhanced productivity.
 * Casual users: Store everyday notes, like shopping lists and phone memos, in one simple hub without needing large storage.
   - Benefit: Since web apps require minimal hardware/software resources, even low-performance devices can run our app smoothly.
-
-### 3.3 Why Web-Based (combined to 3.2)
-
-### 3.4 Reference Websites (Optional)
 
 ---
 
@@ -57,6 +53,7 @@ Non-negotiable core features your project must complete
 * **Login system**: Users must login to see their stored notes.
 * **CRUD**: Create notes, reopen and edit them, and delete them.
 * **Real-time saving**: Autosaves notes while editing.
+* **Note search**: Filter notes with keywords.
 * **Note sharing**: Share notes to enable collaboration (or viewing only).
 * **Note importing**: Read text / image documents and copy content to notes.
 
@@ -70,13 +67,7 @@ are finished
  
 ---
 
-## 5. High-level Workflow Description
-
-Describe in plain text how end-users interact with your web application. Walk through typical user journeys: what actions users take, what pages they visit, and what responses
-the application provides to them. You do NOT need to describe backend-to-database data
-flow details.
-
-### 5.1 User Journey / App Flow (subtitle can be scrapped)
+## 5. High-level Workflow Description (subject to changes)
 
 | Step | Main Page | User Action | App Response | Note |
 | :--- | :--- | :--- | :--- | :--- |
@@ -92,15 +83,7 @@ flow details.
 
 (Subject to changes)
 
-### 5.2 Main Pages (combined with 5.1)
 
-### 5.3 User Actions & App Responses (combined with 5.1)
-
-| User Action | App Response |
-| :--- | :--- |
-| | |
-| | |
-| | |
 
 ### 5.4 Sketch / Diagram (optional)
 You may attach a simple sketch (hand‑drawn photo; simple PPT drawing screenshot is
