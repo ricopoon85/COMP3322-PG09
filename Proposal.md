@@ -136,9 +136,17 @@ students only have Python experience and are new to frontend, Node.js/Express, M
 and Docker deployment, your challenges should reflect your actual learning curve. For
 each challenge, write one simple practical plan on how your group will try to overcome it.
 
+**1. Unfamiliarity to new technologies (e.g., MySQL, Docker)**
+  * **Plan**: Using the help from teaching staff and online sources, each person dives in the technology they are working with and shares knowledge with other members. Also document setup / execution commands so that everyone can replicate the working environment.
+
+**2. Integration of core parts (database -> backend -> frontend)**
+  * **Plan**: Settle on 
+
+
+
 | # | Challenge | Plan to Overcome |
 | :--- | :--- | :--- |
-| 1 | Unfamiliarity to new coding software / languages </br> (e.g., MysQL, Docker) | |
+| 1 | Unfamiliarity to new coding software / languages </br> (e.g., MySQL, Docker) | Consult teaching team / AI for introduction & applications |
 | 2 | | |
 | 3 | | |
 
