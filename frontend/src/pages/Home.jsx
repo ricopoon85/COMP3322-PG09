@@ -4,6 +4,8 @@ import Sidebar from '../components/Sidebar';
 import Editor from '../components/Editor';
 import noteService from '../services/noteService';
 
+import styles from '../components/SearchBar.module.css';
+
 export default function Home() {
   const [notes, setNotes] = useState([]);
   const [selectedNote, setSelectedNote] = useState(null);
@@ -139,10 +141,11 @@ export default function Home() {
   return (
     <div className="workspace-page">
       <Header />
-      <form onSubmit={submitSearch} style={{ padding: '12px 24px' }}>
-        <label>
+      <form className={styles.form} onSubmit={submitSearch}>
+        <label className={styles.label}>
           Search notes
           <input
+            className={styles.input}
             type="search"
             value={search}
             onChange={(event) => setSearch(event.target.value)}
@@ -150,8 +153,8 @@ export default function Home() {
             aria-label="Search notes"
           />
         </label>
-        <button type="submit">Search</button>
-        {search && <button type="button" onClick={clearSearch}>Clear</button>}
+        <button type="submit" className={styles.button}>Search</button>
+        {search && <button type="button" onClick={clearSearch} className={styles.button}>Clear</button>}
       </form>
       {saving && <p style={{ padding: '0 24px' }}>Saving...</p>}
       <div className="content">
