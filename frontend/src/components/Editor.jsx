@@ -39,7 +39,7 @@ export default function Editor({ note, onTitleChange, onContentChange }) {
         aria-label="Note title"
       />
       <textarea
-        className={styles.textarea}
+        className={`scroll-container ${styles.textarea}`}
         value={content}
         onChange={(e) => setContent(e.target.value)}
         placeholder="Start writing your note..."
