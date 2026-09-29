@@ -16,6 +16,23 @@
 
 # How to create the database
 
-1. Open a new Command Prompt and type: `mysql -u root -p`. If the Prompt asks for your password, it means MySQL can run properly.
-2. On the Prompt, navigate to the project folder
-3. 
+1. Open a new **Command Prompt** and type: `mysql -u root -p`.</br>
+   If the Prompt asks for your password, it means MySQL can run properly.
+2. Download a zipped project file to your computer and extract it.
+3. On the Prompt, navigate to the **project folder** (`cd ...\COMP3322-PG09`).
+4. Type: `mysql -u root -p < database/schema.sql`.</br>
+   Enter your password when asked.
+5. The Prompt creates the database and tables.
+
+---
+
+# How to check if the schema is working
+
+1. Log into MySQL using: `mysql -u root -p`
+2. Run the following lines:</br>
+   `SHOW DATABASES;`</br>
+   `USE notes_app;`</br>
+   `SHOW TABLES;`</br>
+   `DESCRIBE users;`</br>
+   `DESCRIBE notes;`</br>
+   If you see the tables, it means the schema is working.
