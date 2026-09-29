@@ -16,8 +16,14 @@ html, body, #root {
   --color-text: #f0f0f0;
   --color-text-muted: #7a7a7a;
   --color-accent: #572598;
+  --color-accent-hover: #6e2fbf;
+  --color-button: #8449d0;
+  --color-button-hover: #9b6adc;
   --color-input-background: #242424;
   --color-input-border: #5b5b5b;
+
+  --color-success: #28a745;
+  --color-error: #dc3545;
 
   --space-xs: 4px;
   --space-sm: 8px;

@@ -1,39 +1,43 @@
 import React from 'react'
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
-import Header from './components/Header'
-import Sidebar from './components/Sidebar'
-import Editor from './components/Editor'
-import Footer from './components/Footer'
+import { BrowserRouter, Routes, Route, Link, Navigate } from 'react-router-dom'
+import Home from './pages/Home'
 import Register from './pages/Register'
 import Login from './pages/Login'
 import Notes from './pages/Notes'
 
 import './App.css'
 
-function HomeLayout() {
-  return (
-    <div className="page-container">
-      <Header />
-      <div className="content">
-        <Sidebar />
-        <Editor />
-      </div>
-      <Footer />
-    </div>
-  )
+function RequireLogin({ children }) {
+  const token = localStorage.getItem('token')
+
+  return token ? children : <Navigate to="/login" replace />
 }
 
 function App() {
+  const isLoggedIn = Boolean(localStorage.getItem('token'))
+
   return (
     <BrowserRouter>
       <nav style={{ padding: 8 }}>
-        <Link to="/">Home</Link> | <Link to="/register">Register</Link> | <Link to="/login">Login</Link> | <Link to="/notes">Notes</Link>
+        <Link to="/">Home</Link> |  <Link to="/notes">Notes</Link>{' '}
+        {isLoggedIn ? (
+          <button onClick={() => {
+            localStorage.removeItem('token')
+            window.location.href = '/login'
+          }}>
+            Logout
+          </button>
+        ) : (
+          <>
+            <Link to="/login">Login</Link>
+          </>
+        )} 
       </nav>
       <Routes>
-        <Route path="/" element={<HomeLayout />} />
+        <Route path="/" element={<RequireLogin><Home /></RequireLogin>} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/notes" element={<Notes />} />
+        <Route path="/notes" element={<RequireLogin><Notes /></RequireLogin>} />
       </Routes>
     </BrowserRouter>
   )
