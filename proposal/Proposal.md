@@ -64,20 +64,27 @@ Users may also collaborate on notes with each other by using the app's sharing f
 
 | Step | Main Page | User Action | App Response | Note |
 | :--- | :--- | :--- | :--- | :--- |
-| **1.** | N/A | Open app | Shows login / signup page | |
-| **2.** | Login / Signup | Sign in | Displays homepage with stored notes | |
+| **1.** | N/A | Open app | Shows login page | |
+| |
+| **2.** | Login | Sign in | Displays homepage with stored notes | |
+| a) | Login | Click 'Register' | Loads signup page | Go to Step 2b) |
+| b) | Signup | Enter & submit new account details | Creates a new account | Return to Step 2 |
+| |
 | **3.** | Home | (See below) | (See below) | |
 | |
+| | **Homepage actions** |
+| a) | Home | Click 'Logout' | Logs user out | Return to Step 1 |
+| b) | " | Enter search keyword | Filters notes by keyword | |
+| |
 | | **Sidebar actions** |
-| a) | Home (Sidebar) | Click "x" button | Removes note from list | |
-| b) | " | Click "+ New" button | Creates a new note | Go to Step 4a) |
-| c) | " | Click on note title | Opens existing note | Go to Step 4a) |
-| d) | " | Click on shared note title</br>(without edit permission) | Opens shared note | Go to Step 4b)</br>(to be added) |
-| e) | " | Enter search keyword | Filters notes by keyword | |
+| c) | Home (Sidebar) | Click 'x' button next to note | Removes note from list | |
+| d) | " | Click '+ New' button | Creates a new note | Go to Step 4a) |
+| e) | " | Click on note title | Opens existing note | Go to Step 4a) |
+| f) | " | Click on shared note title</br>(without edit permission) | Opens shared note | Go to Step 4b)</br>(to be added) |
 | |
 | | **Other accessible pages** |
-| f) | File explorer (on device) | Select file to import | Copies content to note | (to be added) |
-| g) | Share page | Enter email & set permissions | Shares note to collaborator | (to be added) |
+| g) | File explorer (on device) | Select file to import | Copies content to note | (to be added) |
+| h) | Share page | Enter email & set permissions | Shares note to collaborator | (to be added) |
 | |
 | **4.** | **Note content actions** |
 | a) | Note editor | Edit note | Saves note in real time | |
