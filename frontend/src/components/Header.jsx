@@ -6,7 +6,7 @@ import styles from './Header.module.css'
 export default function Header() {
   return (
     <header className={styles.header}>
-      <h1 className={styles.title}>Note Taking App</h1>
+      <h1 className={styles.title}>Web Note Hub</h1>
     </header>
   );
 }
