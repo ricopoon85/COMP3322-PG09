@@ -76,7 +76,7 @@ are finished
 | 3. | Home | (Various actions) | (Opens various pages. See below) |
 | |
 | a) | Note editor | Create / edit note | Saves note in real time |
-| b) | Delete popup | Delete note | Removes note from account | (to be added) |
+| b) | Sidebar | Click x to delete note | Removes note from list |
 | c) | File explorer (device) | Select file to import | Copies content to note | (to be added) |
 | d) | Share popup | Enter email & set permissions | Shares note to collaborator | (to be added) |
 | e) | Note viewer | Open shared note | Displays content (without edit permission) | (to be added) |
