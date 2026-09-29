@@ -31,24 +31,21 @@ end‑users]
 
 - Our group aims to address these problems by developing a lightweight web application which allows users to create and store all their notes in one place.
 - In future editions, we plan to add cloud synchronization for real-time sharing and co-editing.
-  The app will also be able to read uploaded files (such as .txt, .pdf, and scanned documents) and copy their contents directly into notes.
+  The app will also be able to read uploaded files (such as .txt, .pdf, and scanned documents) and copy their contents directly into notes. [to be scrapped]
 
 
-### 3.2 Target Users & Fits
+### 3.2 Target Users & Web-based Benefits
 
-* Students: Store class schedules, lecture highlights, handwritten notes in one place. No more wasting time searching across devices or transferring files manually.
-* Professionals: Use shared notes as a space where project team members can easily retrieve / add insights and resources, which allows smoother collaboration.
-* Casual users: Put scattered shopping lists, phone memos, and random notes into one organized hub. This saves space and keeps everything tidy.
+* Students: Organize class schedules, lecture highlights, and even handwritten notes in one place.
+  - Benefit: No more wasting time searching across apps/devices or transferring files manually.
+* Professionals: Use shared notes as a space where project team members can easily retrieve / add insights and resources.
+  - Benefit: Smoother collaboration flow and enhanced productivity.
+* Casual users: Store everyday notes, like shopping lists and phone memos, in one simple hub without needing large storage.
+  - Benefit: Since web apps require minimal hardware/software resources, even low-performance devices can run our app smoothly.
 
-
-
-### 3.3 Why Web-Based
-
-
+### 3.3 Why Web-Based (combined to 3.2)
 
 ### 3.4 Reference Websites (Optional)
-
-
 
 ---
 
@@ -76,25 +73,22 @@ Describe in plain text how end-users interact with your web application. Walk th
 the application provides to them. You do NOT need to describe backend-to-database data
 flow details.
 
-1. User opens the app and lands on our login/signup page. [To be added later]
-2. After logging in, users enters the homepage with a list of their stored notes.
-3. User can:
-   * Create a new note: The note editor opens. User enters title and content, and the note saves real-time.
-   * Select & edit an existing note (can be shared): The note editor opens and reflects user's changes immediately.
-   * Import notes: Opens file explorer on device. User selects a file and a note, and the file's content is copied to the note.  [To be added later]
-   * Share a note: Opens a share popup in which user enters target's email. User can also set permissions (edit/view) for target. [To be added later]
-   * View a shared note: The note viewer opens, if origin user granted permission to view only. [To be added later]
+### 5.1 User Journey / App Flow (subtitle can be scrapped)
 
+| Step | Main Page | User Action | App Response | Note |
+| :--- | :--- | :--- | :--- | :--- |
+| 1. | N/A | Open app | Shows login / signup page |
+| 2. | Login / Signup | Sign in | Displays homepage with stored notes |
+| 3. | Home | (Various actions) | (Opens various pages. See below) |
+| |
+| a) | Note editor | Create / edit note | Saves note in real time |
+| b) | File explorer (device) | Select file to import | Copies content to note | (to be added) |
+| c) | Share popup | Enter email & set permissions | Shares note to collaborator | (to be added) |
+| d) | Note viewer | Open shared note | Displays content (without edit permission) | (to be added) |
 
-### 5.1 User Journey / App Flow
+### 5.2 Main Pages (combined with 5.1)
 
-
-
-### 5.2 Main Pages
-
-
-
-### 5.3 User Actions & App Responses
+### 5.3 User Actions & App Responses (combined with 5.1)
 
 | User Action | App Response |
 | :--- | :--- |
@@ -102,8 +96,7 @@ flow details.
 | | |
 | | |
 
-
-### 5.4 Sketch / Diagram
+### 5.4 Sketch / Diagram (optional)
 You may attach a simple sketch (hand‑drawn photo; simple PPT drawing screenshot is
 acceptable). Your sketch should illustrate major user‑facing pages/components and user
 transitions between them. Professional‑quality system diagrams are not expected.
@@ -115,9 +108,9 @@ transitions between them. Professional‑quality system diagrams are not expecte
 
 | Layer | Technology |
 | :--- | :--- |
-| **Frontend** |  |
-| **Backend** |  |
-| **Database** |  |
+| **Frontend** | React |
+| **Backend** | Node.js, Express, RESTful API, HTTP status codes |
+| **Database** | MySQL |
 | **Deployment** |  |
 | **External Integrations** | [If any] |
 
@@ -145,7 +138,7 @@ each challenge, write one simple practical plan on how your group will try to ov
 
 | # | Challenge | Plan to Overcome |
 | :--- | :--- | :--- |
-| 1 | | |
+| 1 | Unfamiliarity to new coding software / languages </br> (e.g., MysQL, Docker) | |
 | 2 | | |
 | 3 | | |
 
