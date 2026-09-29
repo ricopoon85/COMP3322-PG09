@@ -1,4 +1,5 @@
-a, a:visited {
+a,
+a:visited {
     color: var(--color-button);
     text-decoration: none;
 }
@@ -55,4 +56,22 @@ nav {
 .nav-button:hover {
     color: var(--color-text) !important;
     background-color: var(--color-input-border);
+}
+
+.main-content, .workspace-page {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.main-content {
+    overflow: auto;
+}
+
+.content {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
 }

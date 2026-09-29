@@ -34,27 +34,28 @@
 }
 
 .page {
-    min-height: 100dvh;
-    display: grid;
-    place-items: center;
-    padding: var(--space-lg);
+  display: grid;
+  flex: 1;
+  min-height: 0;
+  place-items: center;
+  padding: var(--space-lg);
 }
 
 .form {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
-    width: min(100%, 400px);
-    margin: 0;
-    padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  width: min(100%, 400px);
+  margin: 0;
+  padding: var(--space-lg);
 
-    background-color: var(--color-surface);
-    border-radius: var(--radius-sm);
+  background-color: var(--color-surface);
+  border-radius: var(--radius-sm);
 }
 
 .form h2 {
-    margin: 0;
-    text-align: center;
+  margin: 0;
+  text-align: center;
 }
 
 
@@ -82,9 +83,9 @@
 }
 
 .success {
-    color: var(--color-success);
+  color: var(--color-success);
 }
 
 .error {
-    color: var(--color-error);
+  color: var(--color-error);
 }

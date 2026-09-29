@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import Register from './pages/Register'
 import Login from './pages/Login'
 import Profile from './pages/Profile'
+import Footer from './components/Footer'
 
 import './App.css'
 
@@ -30,24 +31,31 @@ function App() {
 
   return (
     <BrowserRouter>
-      {isLoggedIn && (
-        <nav className="navbar">
-          <Link to="/">Home</Link> |  <Link to="/profile">Profile</Link>{' '}
-          <button className="logout" onClick={() => {
-            localStorage.removeItem('token')
-            window.dispatchEvent(new Event('auth-changed'))
-            window.location.href = '/login'
-          }}>
-            Logout
-          </button>
-        </nav>
-      )}
-      <Routes>
-        <Route path="/" element={<RequireLogin><Home /></RequireLogin>} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/profile" element={<RequireLogin><Profile /></RequireLogin>} />
-      </Routes>
+      <div className="page-container">
+        {isLoggedIn && (
+          <nav className="navbar">
+            <Link to="/">Home</Link> |  <Link to="/profile">Profile</Link>{' '}
+            <button className="logout" onClick={() => {
+              localStorage.removeItem('token')
+              window.dispatchEvent(new Event('auth-changed'))
+              window.location.href = '/login'
+            }}>
+              Logout
+            </button>
+          </nav>
+        )}
+
+        <main className="main-content">
+          <Routes>
+            <Route path="/" element={<RequireLogin><Home /></RequireLogin>} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/profile" element={<RequireLogin><Profile /></RequireLogin>} />
+          </Routes>
+        </main>
+
+        <Footer />
+      </div>
     </BrowserRouter>
   )
 }
