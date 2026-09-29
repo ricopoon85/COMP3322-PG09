@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import api from '../services/api';
 
-export default function Notes() {
+export default function Profile() {
   const [user, setUser] = useState(null);
   const [error, setError] = useState('');
 
@@ -19,7 +19,7 @@ export default function Notes() {
 
   return (
     <div>
-      <h2>Notes (stub)</h2>
+      <h2>Profile</h2>
       {error && <div style={{ color: 'red' }}>{error}</div>}
       {user ? (
         <div>

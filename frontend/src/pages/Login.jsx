@@ -22,31 +22,35 @@ export default function Login() {
       const token = res.data.data.token;
 
       localStorage.setItem('token', token);
+      window.dispatchEvent(new Event('login-event'));
+      window.dispatchEvent(new Event('auth-changed'));
       setMsg('Login success');
       setMsgType('success');
-      navigate('/notes');
+      navigate('/profile');
     } catch (err) {
-        const errMsg = err?.response?.data?.error || 'Login failed';
+      const errMsg = err?.response?.data?.error || 'Login failed';
 
-        setMsg(errMsg);
-        setMsgType('error');
+      setMsg(errMsg);
+      setMsgType('error');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
-      <h2>Login</h2>
-      <input className={styles.input} value={email} onChange={e => setEmail(e.target.value)} placeholder="Your email" />
-      <input className={styles.input} value={password} onChange={e => setPassword(e.target.value)} placeholder="password" type="password" />
-      <button className={styles.button} type="submit" disabled={loading}>
-        {loading ? 'Logging in...' : 'Login'}
-      </button>
-      <div className={`${styles.message} ${msgType === 'success' ? styles.success : styles.error}`}>{msg}</div>
-      <p>
-        Don't have an account? <Link to="/register">Register</Link>
-      </p>
-    </form>
+    <div className={styles.page}>
+      <form className={styles.form} onSubmit={handleSubmit}>
+        <h2>Login</h2>
+        <input className={styles.input} value={email} onChange={e => setEmail(e.target.value)} placeholder="Your email" />
+        <input className={styles.input} value={password} onChange={e => setPassword(e.target.value)} placeholder="password" type="password" />
+        <button className={styles.button} type="submit" disabled={loading}>
+          {loading ? 'Logging in...' : 'Login'}
+        </button>
+        <div className={`${styles.message} ${msgType === 'success' ? styles.success : styles.error}`}>{msg}</div>
+        <p>
+          Don't have an account? <Link to="/register">Register</Link>
+        </p>
+      </form>
+    </div>
   );
 }

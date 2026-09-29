@@ -32,18 +32,20 @@ export default function Register() {
   };
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
-      <h2>Register</h2>
-      <input className={styles.input} value={username} onChange={e => setUsername(e.target.value)} placeholder="Your username" />
-      <input className={styles.input} value={email} onChange={e => setEmail(e.target.value)} placeholder="Your email" />
-      <input className={styles.input} value={password} onChange={e => setPassword(e.target.value)} placeholder="Your password" type="password" />
-      <button className={styles.button} type="submit" disabled={loading}>
-        {loading ? 'Registering...' : 'Register'}
-      </button>
-      <div className={`${styles.message} ${msgType === 'success' ? styles.success : styles.error}`}>{msg}</div>
-      <p>
-        Already have an account? <Link to="/login">Login</Link>
-      </p>
-    </form>
+    <div className={styles.page}>
+      <form className={styles.form} onSubmit={handleSubmit}>
+        <h2>Register</h2>
+        <input className={styles.input} value={username} onChange={e => setUsername(e.target.value)} placeholder="Your username" />
+        <input className={styles.input} value={email} onChange={e => setEmail(e.target.value)} placeholder="Your email" />
+        <input className={styles.input} value={password} onChange={e => setPassword(e.target.value)} placeholder="Your password" type="password" />
+        <button className={styles.button} type="submit" disabled={loading}>
+          {loading ? 'Registering...' : 'Register'}
+        </button>
+        <div className={`${styles.message} ${msgType === 'success' ? styles.success : styles.error}`}>{msg}</div>
+        <p>
+          Already have an account? <Link to="/login">Login</Link>
+        </p>
+      </form>
+    </div>
   );
 }

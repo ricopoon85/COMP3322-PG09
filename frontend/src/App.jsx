@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route, Link, Navigate } from 'react-router-dom'
 import Home from './pages/Home'
 import Register from './pages/Register'
 import Login from './pages/Login'
-import Notes from './pages/Notes'
+import Profile from './pages/Profile'
 
 import './App.css'
 
@@ -14,30 +14,39 @@ function RequireLogin({ children }) {
 }
 
 function App() {
-  const isLoggedIn = Boolean(localStorage.getItem('token'))
+  const [isLoggedIn, setIsLoggedIn] = useState(() => Boolean(localStorage.getItem('token')))
+
+  useEffect(() => {
+    const updateLoginStatus = () => {
+      setIsLoggedIn(Boolean(localStorage.getItem('token')))
+    }
+
+    window.addEventListener('login-event', updateLoginStatus)
+
+    return () => {
+      window.removeEventListener('login-event', updateLoginStatus)
+    }
+  }, [])
 
   return (
     <BrowserRouter>
-      <nav style={{ padding: 8 }}>
-        <Link to="/">Home</Link> |  <Link to="/notes">Notes</Link>{' '}
-        {isLoggedIn ? (
-          <button onClick={() => {
+      {isLoggedIn && (
+        <nav className="navbar">
+          <Link to="/">Home</Link> |  <Link to="/profile">Profile</Link>{' '}
+          <button className="logout" onClick={() => {
             localStorage.removeItem('token')
+            window.dispatchEvent(new Event('auth-changed'))
             window.location.href = '/login'
           }}>
             Logout
           </button>
-        ) : (
-          <>
-            <Link to="/login">Login</Link>
-          </>
-        )} 
-      </nav>
+        </nav>
+      )}
       <Routes>
         <Route path="/" element={<RequireLogin><Home /></RequireLogin>} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/notes" element={<RequireLogin><Notes /></RequireLogin>} />
+        <Route path="/profile" element={<RequireLogin><Profile /></RequireLogin>} />
       </Routes>
     </BrowserRouter>
   )

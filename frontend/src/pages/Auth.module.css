@@ -28,20 +28,27 @@
   cursor: pointer;
   transition: background-color 150ms ease;
 }
+
 .button:hover {
   background-color: var(--color-button-hover);
+}
+
+.page {
+    min-height: 100dvh;
+    display: grid;
+    place-items: center;
+    padding: var(--space-lg);
 }
 
 .form {
     display: flex;
     flex-direction: column;
     gap: var(--space-md);
-    max-width: 400px;
-    margin: 0 auto;
-    justify-content: center;
+    width: min(100%, 400px);
+    margin: 0;
+    padding: var(--space-lg);
 
     background-color: var(--color-surface);
-    padding: var(--space-lg);
     border-radius: var(--radius-sm);
 }
 
