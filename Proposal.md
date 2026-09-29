@@ -46,8 +46,6 @@ Users may also collaborate on notes with each other by using the app's sharing f
 
 ### 4.1 Must-have Features
 
-Non-negotiable core features your project must complete
-
 * **Login system**: Users must login to see their stored notes.
 * **CRUD**: Create notes, reopen and edit them, and delete them.
 * **Real-time saving**: Autosaves notes while editing.
@@ -57,36 +55,27 @@ Non-negotiable core features your project must complete
 
 ### 4.2 Nice-to-have Features
 
-Optional bonus features; only implement these after all must-have items
-are finished
-
 * **Formatting**: Functions to customize content, like font coloring and paragraph alignment.
 * **Schedule notifications**: Set task reminders based on note content.
  
 ---
 
-## 5. High-level Workflow Description (subject to changes)
+## 5. High-level Workflow Description
 
 | Step | Main Page | User Action | App Response | Note |
 | :--- | :--- | :--- | :--- | :--- |
 | 1. | N/A | Open app | Shows login / signup page |  |
 | 2. | Login / Signup | Sign in | Displays homepage with stored notes |  |
-| 3. | Home | (Various actions) | (Opens various pages. See below) |  |
+| 3. | Home | (Various actions) | (Various responses. See below) |  |
 |  |  |  |  |  |
-| a) | Sidebar | Click "x" to delete note | Removes note from list |  |
-| b) | Sidebar | Click "+ New" button | Creates a new note |  |
+| a) | Home (Sidebar) | Click "x" (delete) | Removes note from list |  |
+| b) | Home (Sidebar) | Click "+ New" button | Creates a new note |  |
 | c) | Note editor | Edit note | Saves note in real time |  |
 | d) | File explorer (device) | Select file to import | Copies content to note | (to be added) |
 | e) | Share popup | Enter email & set permissions | Shares note to collaborator | (to be added) |
 | f) | Note viewer | Open shared note | Displays content (without edit permission) | (to be added) |
 
 
-
-
-### 5.4 Sketch / Diagram (optional)
-You may attach a simple sketch (hand‑drawn photo; simple PPT drawing screenshot is
-acceptable). Your sketch should illustrate major user‑facing pages/components and user
-transitions between them. Professional‑quality system diagrams are not expected.
 
 
 ---
