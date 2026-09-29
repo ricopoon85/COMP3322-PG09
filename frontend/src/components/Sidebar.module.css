@@ -1,15 +1,38 @@
 .sidebar {
   flex-shrink: 0;
-  width: 200px;
-  min-height: 0;
-  overflow-y: auto;
+  width: 220px;
   padding: var(--space-sm);
   border-right: 1px solid var(--color-accent);
   background-color: var(--color-surface);
+  overflow-y: auto;
+}
+
+.headingRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-sm);
 }
 
 .heading {
-  margin: 0 0 var(--space-sm);
+  margin: 0;
+  font-size: 0.95em;
+  color: var(--color-text-muted);
+}
+
+.newButton {
+  padding: 4px 10px;
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-accent);
+  font-size: 0.85em;
+  cursor: pointer;
+}
+
+.newButton:hover {
+  background: var(--color-accent);
+  color: white;
 }
 
 .noteList {
@@ -18,9 +41,51 @@
   list-style: none;
 }
 
-.noteList li {
+.noteItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: var(--space-xs) var(--space-sm);
   margin: var(--space-xs) 0;
   border-radius: var(--radius-sm);
   background-color: var(--color-surface-muted);
+  cursor: pointer;
+  transition: background 120ms ease;
+}
+
+.noteItem:hover {
+  background-color: var(--color-surface-raised);
+}
+
+.active {
+  background-color: var(--color-accent);
+  color: white;
+}
+
+.noteTitle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+
+.deleteButton {
+  margin-left: var(--space-xs);
+  border: none;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: 1.1em;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.deleteButton:hover {
+  color: #dc2626;
+}
+
+.empty {
+  color: var(--color-text-muted);
+  font-size: 0.85em;
+  text-align: center;
+  padding: var(--space-md) 0;
 }
