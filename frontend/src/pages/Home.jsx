@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState } from 'react';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import Editor from '../components/Editor';
-import Footer from '../components/Footer';
 import noteService from '../services/noteService';
 
 export default function Home() {
@@ -25,28 +24,23 @@ export default function Home() {
     );
   }, []);
 
-  const loadNotes = useCallback(
-    async (query = '') => {
-      setLoading(true);
-      setError('');
-      try {
-        const loadedNotes = query.trim()
-          ? await noteService.searchNotes(query)
-          : await noteService.listNotes();
-        setNotes(loadedNotes);
-        setSelectedNote((current) =>
-          loadedNotes.find((note) => note.id === current?.id) ||
-          loadedNotes[0] ||
-          null
-        );
-      } catch (requestError) {
-        handleRequestError(requestError);
-      } finally {
-        setLoading(false);
-      }
-    },
-    [handleRequestError]
-  );
+  const loadNotes = useCallback(async (query = '') => {
+    setLoading(true);
+    setError('');
+    try {
+      const loadedNotes = await noteService.listNotes(query);
+      setNotes(loadedNotes);
+      setSelectedNote((current) =>
+        loadedNotes.find((note) => note.id === current?.id) ||
+        loadedNotes[0] ||
+        null
+      );
+    } catch (requestError) {
+      handleRequestError(requestError);
+    } finally {
+      setLoading(false);
+    }
+  }, [handleRequestError]);
 
   useEffect(() => {
     loadNotes();
@@ -59,7 +53,7 @@ export default function Home() {
         title: 'Untitled Note',
         content: '',
       });
-      setNotes((prev) => [newNote, ...prev]);
+      setNotes((previous) => [newNote, ...previous]);
       setSelectedNote(newNote);
     } catch (requestError) {
       handleRequestError(requestError);
@@ -68,17 +62,21 @@ export default function Home() {
 
   const updateNote = async (id, fields) => {
     setError('');
-    setNotes((prev) =>
-      prev.map((n) => (n.id === id ? { ...n, ...fields } : n))
+    setNotes((previous) =>
+      previous.map((note) => (note.id === id ? { ...note, ...fields } : note))
     );
-    setSelectedNote((prev) => (prev?.id === id ? { ...prev, ...fields } : prev));
+    setSelectedNote((previous) =>
+      previous?.id === id ? { ...previous, ...fields } : previous
+    );
     setSaving(true);
     try {
       const updatedNote = await noteService.updateNote(id, fields);
-      setNotes((prev) =>
-        prev.map((note) => (note.id === id ? updatedNote : note))
+      setNotes((previous) =>
+        previous.map((note) => (note.id === id ? updatedNote : note))
       );
-      setSelectedNote((prev) => (prev?.id === id ? updatedNote : prev));
+      setSelectedNote((previous) =>
+        previous?.id === id ? updatedNote : previous
+      );
     } catch (requestError) {
       handleRequestError(requestError);
     } finally {
@@ -90,11 +88,13 @@ export default function Home() {
     setError('');
     try {
       await noteService.deleteNote(id);
-      const remaining = notes.filter((note) => note.id !== id);
-      setNotes(remaining);
-      if (selectedNote?.id === id) {
-        setSelectedNote(remaining[0] || null);
-      }
+      setNotes((previous) => {
+        const remaining = previous.filter((note) => note.id !== id);
+        setSelectedNote((current) =>
+          current?.id === id ? remaining[0] || null : current
+        );
+        return remaining;
+      });
     } catch (requestError) {
       handleRequestError(requestError);
     }
@@ -108,11 +108,6 @@ export default function Home() {
   const clearSearch = () => {
     setSearch('');
     loadNotes();
-  };
-
-  const logout = () => {
-    localStorage.removeItem('token');
-    window.location.href = '/login';
   };
 
   const renderContent = () => {
@@ -142,8 +137,8 @@ export default function Home() {
   };
 
   return (
-    <div className="page-container">
-      <Header onLogout={logout} />
+    <div className="workspace-page">
+      <Header />
       <form onSubmit={submitSearch} style={{ padding: '12px 24px' }}>
         <label>
           Search notes
@@ -169,7 +164,6 @@ export default function Home() {
         />
         {renderContent()}
       </div>
-      <Footer />
     </div>
   );
 }
