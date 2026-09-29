@@ -7,8 +7,8 @@ import Footer from '../components/Footer';
 const MOCK_NOTES = [
   {
     id: 1,
-    title: 'Welcome Note',
-    content: 'This is a test note. Try editing me!',
+    title: 'Test Note',
+    content: 'You can edit here.',
     created_at: new Date().toISOString(),
   },
 ];
