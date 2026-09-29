@@ -14,3 +14,19 @@
   font-size: 1.25rem;
   white-space: nowrap;
 }
+
+.logoutButton {
+  margin-left: auto;
+  padding: 6px 14px;
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-accent);
+  cursor: pointer;
+  font-size: 0.9em;
+}
+
+.logoutButton:hover {
+  background: var(--color-accent);
+  color: white;
+}
