@@ -1,4 +1,4 @@
-# [Project Title] - COMP3322 PG09 Project Proposal
+# [Web Note-taking Hub] - COMP3322 PG09 Project Proposal
 
 
 ---
@@ -30,8 +30,7 @@ end‑users]
 * These groups also handle collaborative tasks, and they need an accessible method to share instructions and important information with colleagues.</br>
 
 - Our group aims to address these problems by developing a lightweight web application which allows users to create and store all their notes in one place.
-- In future editions, we plan to add cloud synchronization for real-time sharing and co-editing.
-  The app will also be able to read uploaded files (such as .txt, .pdf, and scanned documents) and copy their contents directly into notes. [to be scrapped]
+
 
 
 ### 3.2 Target Users & Web-based Benefits
@@ -55,16 +54,20 @@ end‑users]
 
 Non-negotiable core features your project must complete
 
-- 
-
+* **Login system**: Users must login to see their stored notes.
+* **CRUD**: Create notes, reopen and edit them, and delete them.
+* **Real-time saving**: Autosaves notes while editing.
+* **Note sharing**: Share notes to enable collaboration (or viewing only).
+* **Note importing**: Read text / image documents and copy content to notes.
 
 ### 4.2 Nice-to-have Features
 
 Optional bonus features; only implement these after all must-have items
 are finished
 
-- 
-
+* **Formatting**: Functions to customize content, like font coloring and paragraph alignment.
+* **Schedule notifications**: Set task reminders based on note content.
+ 
 ---
 
 ## 5. High-level Workflow Description
@@ -82,9 +85,12 @@ flow details.
 | 3. | Home | (Various actions) | (Opens various pages. See below) |
 | |
 | a) | Note editor | Create / edit note | Saves note in real time |
-| b) | File explorer (device) | Select file to import | Copies content to note | (to be added) |
-| c) | Share popup | Enter email & set permissions | Shares note to collaborator | (to be added) |
-| d) | Note viewer | Open shared note | Displays content (without edit permission) | (to be added) |
+| b) | Delete popup | Delete note | Removes note from account | (to be added) |
+| c) | File explorer (device) | Select file to import | Copies content to note | (to be added) |
+| d) | Share popup | Enter email & set permissions | Shares note to collaborator | (to be added) |
+| e) | Note viewer | Open shared note | Displays content (without edit permission) | (to be added) |
+
+(Subject to changes)
 
 ### 5.2 Main Pages (combined with 5.1)
 
@@ -131,24 +137,8 @@ transitions between them. Professional‑quality system diagrams are not expecte
 
 ## 8. Anticipated Learning Challenges & Self-assessment
 
-List 2‑3 realistic challenges your group expects to face during development. Since most
-students only have Python experience and are new to frontend, Node.js/Express, MySQL
-and Docker deployment, your challenges should reflect your actual learning curve. For
-each challenge, write one simple practical plan on how your group will try to overcome it.
-
 **1. Unfamiliarity to new technologies (e.g., MySQL, Docker)**
-  * **Plan**: Using the help from teaching staff and online sources, each person dives in the technology they are working with and shares knowledge with other members. Also document setup / execution commands so that everyone can replicate the working environment.
+  * **Plan**: With the help from teaching staff and online sources, each person dives in the technology they are working with and shares knowledge with other members. Also document setup steps / execution commands so that everyone can replicate the working environment.
 
 **2. Integration of core parts (database -> backend -> frontend)**
-  * **Plan**: Settle on 
-
-
-
-| # | Challenge | Plan to Overcome |
-| :--- | :--- | :--- |
-| 1 | Unfamiliarity to new coding software / languages </br> (e.g., MySQL, Docker) | Consult teaching team / AI for introduction & applications |
-| 2 | | |
-| 3 | | |
-
-
----
+  * **Plan**: Agree on data exchange rules early. Also set testing milestones for each separate module, then integrated parts so errors are caught gradually instead of all at once.
