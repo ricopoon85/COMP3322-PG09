@@ -1,6 +1,7 @@
 # How to set up MySQL (For Windows)
 
-1. Download the **MySQL MSI installer** from MySQL Community Server. (macOS users: download the **DMG installer** instead.)
+1. Download the **MySQL MSI installer** from MySQL Community Server.</br>
+   (macOS users: download the **DMG installer** instead.)
 2. Install MySQL on the computer.
 3. After installation, open the **MySQL Configurator**.
 4. Follow the configurator's instructions, set a root password and remember it.
