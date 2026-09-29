@@ -1,6 +1,5 @@
 # Web Note Hub - COMP3322 PG09 Project Proposal
 
-
 ---
 
 ## 1. Member Information & Preliminary Task Allocation
@@ -16,7 +15,6 @@
 | **All members** | | Documentation, testing, version control, deployment, presentation |
 
 ---
-
 
 ## 2. Project Description
 
@@ -75,14 +73,13 @@ are finished
 | 2. | Login / Signup | Sign in | Displays homepage with stored notes |  |
 | 3. | Home | (Various actions) | (Opens various pages. See below) |  |
 |  |  |  |  |  |
-| a) | Note editor | Create / edit note | Saves note in real time |  |
-| b) | Sidebar | Click "x" to delete note | Removes note from list |  |
-| c) | Sidebar | Click "+ New" button | Creates a new note |  |
+| a) | Sidebar | Click "x" to delete note | Removes note from list |  |
+| b) | Sidebar | Click "+ New" button | Creates a new note |  |
+| c) | Note editor | Edit note | Saves note in real time |  |
 | d) | File explorer (device) | Select file to import | Copies content to note | (to be added) |
 | e) | Share popup | Enter email & set permissions | Shares note to collaborator | (to be added) |
 | f) | Note viewer | Open shared note | Displays content (without edit permission) | (to be added) |
 
-(Subject to changes)
 
 
 
@@ -98,31 +95,20 @@ transitions between them. Professional‑quality system diagrams are not expecte
 
 | Layer | Technology |
 | :--- | :--- |
-| **Frontend** | React |
+| **Frontend** | React (with Vite) |
 | **Backend** | Node.js, Express, RESTful API, HTTP status codes |
 | **Database** | MySQL |
-| **Deployment** |  |
-| **External Integrations** | [If any] |
+| **Deployment** | Linux VM, Docker Compose |
 
 ---
 
-## 7. Task Allocation
-
-| Responsibility | Assigned To |
-| :--- | :--- |
-| Project Proposal Documentation | All Members |
-| Frontend Development & UI Design | Lam Cheung Lam, Lin Chuen Ching |
-| Backend API Development & Integration | Tam Ho Chun, Lo Kwok Ming |
-| Database Schema Design | Poon Wing Lok |
-
----
-
----
-
-## 8. Anticipated Learning Challenges & Self-assessment
+## 7. Anticipated Learning Challenges & Self-assessment
 
 **1. Unfamiliarity to new technologies (e.g., MySQL, Docker)**
   * **Plan**: With the help from teaching staff and online sources, each person dives in the technology they are working with and shares knowledge with other members. Also document setup steps / execution commands so that everyone can replicate the working environment.
 
 **2. Integration of core parts (database -> backend -> frontend)**
   * **Plan**: Agree on data exchange rules early. Also set testing milestones for each separate module, then integrated parts so errors are caught gradually instead of all at once.
+
+**3. Coordination among group members**
+  * **Plan**: Keep in frequent contact for any content updates. Also hold small, weekly meetings to make sure everyone is aligned and deadlines are clear.
