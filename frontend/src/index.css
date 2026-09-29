@@ -15,8 +15,10 @@ html, body, #root {
   --color-surface-muted: #313131;
   --color-text: #f0f0f0;
   --color-text-muted: #7a7a7a;
+
   --color-accent: #572598;
   --color-accent-hover: #6e2fbf;
+  --color-accent-dark: #402e59;
   --color-button: #8449d0;
   --color-button-hover: #9b6adc;
   --color-input-background: #242424;
@@ -39,20 +41,27 @@ html, body, #root {
 .page-container {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  min-height: 100dvh;
+  min-height: 0;
+  height: 100dvh;
+  overflow: hidden;
 }
 
 .content {
   display: flex;
-  flex-direction: row;
-  flex-grow: 1;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
 }
 
 .horizontal-layout {
   display: flex;
   align-items: center;
   gap: 15px;
+}
+
+.scroll-container {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-surface) var(--color-accent-dark);
 }
 
 body {

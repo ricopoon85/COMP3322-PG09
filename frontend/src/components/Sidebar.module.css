@@ -1,6 +1,8 @@
 .sidebar {
   flex-shrink: 0;
   width: 220px;
+  height: 100%;
+  min-height: 0;
   padding: var(--space-sm);
   border-right: 1px solid var(--color-accent);
   background-color: var(--color-surface);

@@ -9,7 +9,7 @@ export default function Sidebar({
   onDelete,
 }) {
   return (
-    <aside className={styles.sidebar}>
+    <aside className={`scroll-container ${styles.sidebar}`}>
       <div className={styles.headingRow}>
         <p className={styles.heading}>Your notes</p>
         <button className={styles.newButton} onClick={onCreate}>

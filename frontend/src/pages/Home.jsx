@@ -48,7 +48,7 @@ export default function Home() {
   };
 
   return (
-    <div className="page-container">
+    <div className="workspace-page">
       <Header />
       <div className="content">
         <Sidebar
