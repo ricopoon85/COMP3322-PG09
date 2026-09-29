@@ -7,7 +7,7 @@ const User = {
     return result.insertId;
   },
   findUserByEmail: async (email) => {
-    const sql = `SELECT * FROM users WHERE email = ? LIMIT 1`;
+    const sql = `SELECT * FROM users WHERE LOWER(email) = LOWER(?) LIMIT 1`;
     const [rows] = await db.execute(sql, [email]);
     return rows[0];
   },

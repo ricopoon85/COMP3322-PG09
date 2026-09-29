@@ -13,7 +13,8 @@ const register = async (req, res) => {
       });
     }
 
-    const { username, email, password } = req.body;
+    const { username, password } = req.body;
+    const email = String(req.body.email || '').trim().toLowerCase();
 
     const existingUser = await userModel.findUserByEmail(email);
     if (existingUser) {
@@ -51,7 +52,8 @@ const login = async (req, res) => {
       });
     }
 
-    const { email, password } = req.body;
+    const password = req.body.password;
+    const email = String(req.body.email || '').trim().toLowerCase();
 
     const user = await userModel.findUserByEmail(email);
     if (!user) {
@@ -65,7 +67,7 @@ const login = async (req, res) => {
     if (!isMatch) {
       return res.status(401).json({
         success: false,
-        error: 'Invalid credentials',
+        error: 'Invalid password',
       });
     }
 
