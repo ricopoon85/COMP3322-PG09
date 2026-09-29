@@ -64,17 +64,24 @@ Users may also collaborate on notes with each other by using the app's sharing f
 
 | Step | Main Page | User Action | App Response | Note |
 | :--- | :--- | :--- | :--- | :--- |
-| 1. | N/A | Open app | Shows login / signup page |  |
-| 2. | Login / Signup | Sign in | Displays homepage with stored notes |  |
-| 3. | Home | (Various actions) | (Various responses. See below) |  |
-|  |  |  |  |  |
-| a) | Home (Sidebar) | Click "x" (delete) | Removes note from list |  |
-| b) | Home (Sidebar) | Click "+ New" button | Creates a new note |  |
-| c) | Note editor | Edit note | Saves note in real time |  |
-| d) | File explorer (device) | Select file to import | Copies content to note | (to be added) |
-| e) | Share popup | Enter email & set permissions | Shares note to collaborator | (to be added) |
-| f) | Note viewer | Open shared note | Displays content (without edit permission) | (to be added) |
-
+| **1.** | N/A | Open app | Shows login / signup page | |
+| **2.** | Login / Signup | Sign in | Displays homepage with stored notes | |
+| **3.** | Home | (See below) | (See below) | |
+| |
+| | **Sidebar actions** |
+| a) | Home (Sidebar) | Click "x" button | Removes note from list | |
+| b) | " | Click "+ New" button | Creates a new note | Go to Step 4a) |
+| c) | " | Click on note title | Opens existing note | Go to Step 4a) |
+| d) | " | Click on shared note title</br>(without edit permission) | Opens shared note | Go to Step 4b)</br>(to be added) |
+| e) | " | Enter search keyword | Filters notes by keyword | |
+| |
+| | **Other accessible pages** |
+| f) | File explorer (on device) | Select file to import | Copies content to note | (to be added) |
+| g) | Share page | Enter email & set permissions | Shares note to collaborator | (to be added) |
+| |
+| **4.** | **Note content actions** |
+| a) | Note editor | Edit note | Saves note in real time | |
+| b) | Note viewer | View note | Displays content (cannot edit) | (to be added) |
 
 
 
