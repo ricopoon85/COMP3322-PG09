@@ -49,7 +49,7 @@ export default function Home() {
 
   return (
     <div className="page-container">
-      <Header onLogout={logout} />
+      <Header />
       <div className="content">
         <Sidebar
           notes={notes}
