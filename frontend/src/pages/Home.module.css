@@ -1,0 +1,127 @@
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  padding: 0 var(--space-lg) var(--space-sm);
+}
+
+.toolbarMeta {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.sharePanel {
+  padding: 0 var(--space-lg) var(--space-sm);
+}
+
+.shareCard {
+  max-width: 36rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-input-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-md);
+}
+
+.shareHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.shareTitle {
+  margin: 0;
+  color: var(--color-text);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.shareButton,
+.shareAddButton,
+.shareRemove,
+.shareActionButton {
+  padding: var(--space-xs) var(--space-sm);
+  border: 1px solid var(--color-input-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  background-color: transparent;
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease;
+}
+
+.shareButton:hover,
+.shareAddButton:hover,
+.shareRemove:hover,
+.shareActionButton:hover {
+  background-color: var(--color-input-border);
+  border-color: var(--color-accent);
+}
+
+.shareList {
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.shareItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  background: var(--color-background);
+  border: 1px solid var(--color-input-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-sm) var(--space-md);
+}
+
+.shareIdentity {
+  min-width: 0;
+  flex: 1;
+}
+
+.shareEmail {
+  font-weight: 600;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.shareHandle {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.shareControls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.shareSelect {
+  padding: var(--space-xs) var(--space-sm);
+  border: 1px solid var(--color-input-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-input-background);
+  color: var(--color-text);
+  font: inherit;
+}
+
+.shareRemove {
+  color: var(--color-error);
+}
+
+.shareEmpty {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.shareError {
+  margin: 0 0 var(--space-sm);
+  color: var(--color-error);
+  font-size: 0.8rem;
+}

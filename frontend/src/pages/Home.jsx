@@ -5,7 +5,8 @@ import Editor from '../components/Editor';
 import ShareModal from '../components/ShareModal';
 import noteService from '../services/noteService';
 
-import styles from '../components/SearchBar.module.css';
+import searchStyles from '../components/SearchBar.module.css';
+import homeStyles from './Home.module.css';
 
 export default function Home() {
   const [notes, setNotes] = useState([]);
@@ -190,20 +191,20 @@ export default function Home() {
     <div className="workspace-page">
       <Header />
       {selectedNote && (
-        <div style={{ padding: '0 24px 12px', display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
-          <button type="button" onClick={() => setShowShare(true)}>
-            Share This Note
+        <div className={homeStyles.toolbar}>
+          <button type="button" onClick={() => setShowShare(true)} className={homeStyles.shareButton}>
+            Share note
           </button>
-          <span style={{ fontSize: 13, color: '#475569' }}>
+          <span className={homeStyles.toolbarMeta}>
             {shares.length ? `${shares.length} collaborator${shares.length > 1 ? 's' : ''}` : 'Not shared yet'}
           </span>
         </div>
       )}
-      <form className={styles.form} onSubmit={submitSearch}>
-        <label className={styles.label}>
+      <form className={searchStyles.form} onSubmit={submitSearch}>
+        <label className={searchStyles.label}>
           Search notes
           <input
-            className={styles.input}
+            className={searchStyles.input}
             type="search"
             value={search}
             onChange={(event) => setSearch(event.target.value)}
@@ -211,67 +212,48 @@ export default function Home() {
             aria-label="Search notes"
           />
         </label>
-        <button type="submit" className={styles.button}>Search</button>
-        {search && <button type="button" onClick={clearSearch} className={styles.button}>Clear</button>}
+        <button type="submit" className={searchStyles.button}>Search</button>
+        {search && <button type="button" onClick={clearSearch} className={searchStyles.button}>Clear</button>}
       </form>
       {saving && <p style={{ padding: '0 24px' }}>Saving...</p>}
       {selectedNote && (
-        <div style={{ padding: '0 24px 12px' }}>
-          <div
-            style={{
-              background: '#f8fafc',
-              border: '1px solid #e2e8f0',
-              borderRadius: 12,
-              padding: 16,
-              maxWidth: 560,
-            }}
-          >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-              <strong style={{ fontSize: 15 }}>Shared with</strong>
-              <button type="button" onClick={() => setShowShare(true)} style={{ padding: '6px 10px' }}>
-                + Add
+        <div className={homeStyles.sharePanel}>
+          <div className={homeStyles.shareCard}>
+            <div className={homeStyles.shareHeader}>
+              <strong className={homeStyles.shareTitle}>Shared with</strong>
+              <button type="button" onClick={() => setShowShare(true)} className={homeStyles.shareAddButton}>
+                + Add access
               </button>
             </div>
 
-            {sharesError && <p style={{ color: '#b91c1c', margin: '0 0 8px' }}>{sharesError}</p>}
+            {sharesError && <p className={homeStyles.shareError}>{sharesError}</p>}
 
             {shares.length === 0 ? (
-              <p style={{ margin: 0, color: '#64748b' }}>No one has access to this note yet.</p>
+              <p className={homeStyles.shareEmpty}>No collaborators yet. Share this note with someone to begin collaborating.</p>
             ) : (
-              <div style={{ display: 'grid', gap: 10 }}>
+              <div className={homeStyles.shareList}>
                 {shares.map((share) => (
-                  <div
-                    key={share.id}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      gap: 12,
-                      background: '#fff',
-                      border: '1px solid #e2e8f0',
-                      borderRadius: 10,
-                      padding: '8px 10px',
-                    }}
-                  >
-                    <div style={{ minWidth: 0 }}>
-                      <div style={{ fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                  <div key={share.id} className={homeStyles.shareItem}>
+                    <div className={homeStyles.shareIdentity}>
+                      <div className={homeStyles.shareEmail}>
                         {share.shared_with_email || share.shared_with_username || 'User'}
                       </div>
-                      <div style={{ fontSize: 12, color: '#64748b' }}>
+                      <div className={homeStyles.shareHandle}>
                         {share.shared_with_username ? `@${share.shared_with_username}` : 'Collaborator'}
                       </div>
                     </div>
 
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <div className={homeStyles.shareControls}>
                       <select
                         value={share.permission}
                         onChange={(event) => updateSharePermission(share.id, event.target.value)}
-                        style={{ padding: '6px 8px', borderRadius: 6, border: '1px solid #cbd5e1' }}
+                        className={homeStyles.shareSelect}
+                        aria-label={`Permission for ${share.shared_with_email || 'collaborator'}`}
                       >
                         <option value="view">View</option>
                         <option value="edit">Edit</option>
                       </select>
-                      <button type="button" onClick={() => removeShare(share.id)} style={{ padding: '6px 8px' }}>
+                      <button type="button" onClick={() => removeShare(share.id)} className={homeStyles.shareRemove}>
                         Remove
                       </button>
                     </div>
