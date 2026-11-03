@@ -21,6 +21,25 @@ const deleteNote = async (id) => {
   await api.delete(`/notes/${id}`);
 };
 
+const createShare = async (noteId, email, permission = 'view') => {
+  const response = await api.post(`/notes/${noteId}/shares`, { email, permission });
+  return response.data.data;
+};
+
+const listShares = async (noteId) => {
+  const response = await api.get(`/notes/${noteId}/shares`);
+  return response.data.data;
+};
+
+const updateShare = async (noteId, shareId, permission) => {
+  const response = await api.patch(`/notes/${noteId}/shares/${shareId}`, { permission });
+  return response.data.data;
+};
+
+const deleteShare = async (noteId, shareId) => {
+  await api.delete(`/notes/${noteId}/shares/${shareId}`);
+};
+
 const searchNotes = (search) => listNotes(search);
 
 export default {
@@ -28,5 +47,9 @@ export default {
   createNote,
   updateNote,
   deleteNote,
+  createShare,
+  listShares,
+  updateShare,
+  deleteShare,
   searchNotes,
 };
