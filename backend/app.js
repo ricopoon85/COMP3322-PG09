@@ -5,14 +5,16 @@ const db = require('./config/db');
 
 const authRoutes = require('./routes/authRoutes');
 const noteRoutes = require('./routes/noteRoutes');
+const shareRoutes = require('./routes/shareRoutes');
 const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: '2mb' }));
 app.use('/api/auth', authRoutes);
 app.use('/api/notes', noteRoutes);
+app.use('/api/shared-notes', shareRoutes);
 app.get('/api/health', async (req, res, next) => {
   try {
     await db.query('SELECT 1');
