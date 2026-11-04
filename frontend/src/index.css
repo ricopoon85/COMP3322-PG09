@@ -9,6 +9,38 @@ html, body, #root {
   font-size: 16px;
   height: 100vh;
 
+  --color-background: #ffffff;
+  --color-surface: #f5f5f5;
+  --color-surface-raised: #e8e8e8;
+  --color-surface-muted: #eeeeee;
+  --color-text: #1a1a1a;
+  --color-text-muted: #666666;
+
+  --color-accent: #8449d0;
+  --color-accent-hover: #6e2fbf;
+  --color-accent-dark: #d8c8f0;
+  --color-button: #8449d0;
+  --color-button-hover: #6e2fbf;
+  --color-input-background: #ffffff;
+  --color-input-border: #cccccc;
+
+  --color-success: #28a745;
+  --color-error: #dc3545;
+
+  --hl-yellow: rgba(255, 235, 59, 0.5);
+  --hl-green: rgba(76, 175, 80, 0.5);
+  --hl-cyan: rgba(0, 188, 212, 0.5);
+  --hl-pink: rgba(233, 30, 99, 0.5);
+  --hl-red: rgba(244, 67, 54, 0.5);
+
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --radius-sm: 6px;
+}
+
+body.dark-mode {
   --color-background: #1a1a1a;
   --color-surface: #2a2a2a;
   --color-surface-raised: #3a3a3a;
@@ -23,15 +55,6 @@ html, body, #root {
   --color-button-hover: #9b6adc;
   --color-input-background: #242424;
   --color-input-border: #5b5b5b;
-
-  --color-success: #28a745;
-  --color-error: #dc3545;
-
-  --space-xs: 4px;
-  --space-sm: 8px;
-  --space-md: 16px;
-  --space-lg: 24px;
-  --radius-sm: 6px;
 }
 
 #root {

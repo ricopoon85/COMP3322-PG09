@@ -17,8 +17,8 @@
   color: var(--color-text);
   background-color: var(--color-input-background);
   font: inherit;
-  font-size: 1.25rem;
-  font-weight: 600;
+  font-size: 1.5rem;
+  font-weight: 700;
 }
 
 .titleInput:focus {
@@ -30,7 +30,6 @@
 .textarea {
   flex: 1;
   min-height: 0;
-  resize: none;
   overflow-y: auto;
   padding: var(--space-md);
   border: 1px solid var(--color-input-border);
@@ -38,11 +37,46 @@
   color: var(--color-text);
   background-color: var(--color-input-background);
   font: inherit;
-  line-height: 1.5;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  outline: none;
 }
 
 .textarea:focus {
   outline: none;
   border-color: var(--color-accent);
   box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-accent) 35%, transparent);
+}
+
+.textarea h1 { font-size: 2rem; margin: 10px 0; font-weight: bold; }
+.textarea h2 { font-size: 1.5rem; margin: 8px 0; font-weight: bold; }
+.textarea h3 { font-size: 1.2rem; margin: 6px 0; font-weight: bold; }
+.textarea p { margin: 4px 0; }
+
+.textarea hr {
+  border: none;
+  border-top: 2px solid var(--color-input-border); 
+  margin: 16px 0;
+  width: 100%;
+}
+
+.textarea input[type="checkbox"] {
+
+  margin-right: 8px;
+  cursor: pointer;
+  transform: scale(1.5);
+}
+
+.searchHighlight {
+  background-color: var(--hl-yellow);
+  color: inherit;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--hl-yellow) 70%, #000);
+}
+
+.textarea:empty::before {
+  content: attr(placeholder);
+  color: var(--color-text-muted);
+  pointer-events: none;
+  display: block;
 }

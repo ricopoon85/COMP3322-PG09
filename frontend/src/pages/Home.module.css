@@ -11,6 +11,78 @@
   color: var(--color-text-muted);
 }
 
+.sharedWithWrap {
+  position: relative;
+}
+
+.sharedWithPreview {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  border: 1px solid var(--color-input-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.themeToggle {
+  margin-left: 0;
+  padding: var(--space-xs) var(--space-sm);
+  border: 1px solid var(--color-input-border);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.themeToggle:hover {
+  background: var(--color-input-border);
+}
+
+.logoutButton {
+  margin-left: 0;
+  padding: var(--space-xs) var(--space-sm);
+  border: 1px solid var(--color-input-border);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.logoutButton:hover {
+  background: var(--color-input-border);
+}
+
+.sharedWithPreview:hover {
+  border-color: var(--color-accent);
+}
+
+.sharedWithLabel {
+  color: var(--color-text-muted);
+}
+
+.sharedWithPopover {
+  position: absolute;
+  top: calc(100% + var(--space-xs));
+  right: 0;
+  left: auto;
+  z-index: 20;
+  width: min(24rem, calc(100vw - 32px));
+  max-height: min(70vh, 28rem);
+  overflow-y: auto;
+  padding: var(--space-sm);
+  border: 1px solid var(--color-input-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-raised);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
 .sharePanel {
   padding: 0 var(--space-lg) var(--space-sm);
 }

@@ -4,6 +4,7 @@ import Sidebar from '../components/Sidebar';
 import Editor from '../components/Editor';
 import ShareModal from '../components/ShareModal';
 import noteService from '../services/noteService';
+import { Link } from 'react-router-dom';
 
 import searchStyles from '../components/SearchBar.module.css';
 import homeStyles from './Home.module.css';
@@ -18,6 +19,8 @@ export default function Home() {
   const [showShare, setShowShare] = useState(false);
   const [shares, setShares] = useState([]);
   const [sharesError, setSharesError] = useState('');
+  const [showSharedWith, setShowSharedWith] = useState(false);
+  const [isLightMode, setIsLightMode] = useState(() => !document.body.classList.contains('dark-mode'));
 
   const handleRequestError = useCallback((requestError) => {
     if (requestError.response?.status === 401) {
@@ -112,10 +115,24 @@ export default function Home() {
     loadNotes(search);
   };
 
+  const toggleTheme = () => {
+    const nextLightMode = !isLightMode;
+    setIsLightMode(nextLightMode);
+    document.body.classList.toggle('dark-mode', !nextLightMode);
+  };
+
   const clearSearch = () => {
     setSearch('');
     loadNotes();
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      loadNotes(search);
+    }, 150);
+
+    return () => clearTimeout(timer);
+  }, [search, loadNotes]);
 
   const loadShares = useCallback(async (noteId) => {
     if (!noteId) {
@@ -181,6 +198,7 @@ export default function Home() {
     return (
       <Editor
         note={selectedNote}
+        searchQuery={search}
         onTitleChange={(title) => updateNote(selectedNote.id, { title })}
         onContentChange={(content) => updateNote(selectedNote.id, { content })}
       />
@@ -189,17 +207,76 @@ export default function Home() {
 
   return (
     <div className="workspace-page">
-      <Header />
-      {selectedNote && (
-        <div className={homeStyles.toolbar}>
-          <button type="button" onClick={() => setShowShare(true)} className={homeStyles.shareButton}>
-            Share note
+      <Header navigation={<><Link to="/">Home</Link><span>|</span><Link to="/profile">Profile</Link></>}>
+        {selectedNote && (
+          <>
+            <div className={homeStyles.sharedWithWrap}>
+            <button
+              type="button"
+              className={homeStyles.sharedWithPreview}
+              onClick={() => setShowSharedWith((open) => !open)}
+              aria-expanded={showSharedWith}
+            >
+              <span className={homeStyles.sharedWithLabel}>Shared with</span>
+              <strong>{shares.length ? `${shares.length} people` : 'No one yet'}</strong>
+              <span aria-hidden="true">{showSharedWith ? '⌃' : '⌄'}</span>
+            </button>
+            {showSharedWith && (
+              <div className={homeStyles.sharedWithPopover}>
+                <div className={homeStyles.shareHeader}>
+                  <strong>Manage access</strong>
+                  <button type="button" onClick={() => setShowShare(true)} className={homeStyles.shareAddButton}>
+                    + Add access
+                  </button>
+                </div>
+                {sharesError && <p className={homeStyles.shareError}>{sharesError}</p>}
+                {shares.length === 0 ? (
+                  <p className={homeStyles.shareEmpty}>No collaborators yet.</p>
+                ) : (
+                  <div className={homeStyles.shareList}>
+                    {shares.map((share) => (
+                      <div key={share.id} className={homeStyles.shareItem}>
+                        <span className={homeStyles.shareEmail}>
+                          {share.shared_with_email || share.shared_with_username || 'User'}
+                        </span>
+                        <div className={homeStyles.shareControls}>
+                          <select
+                            value={share.permission}
+                            onChange={(event) => updateSharePermission(share.id, event.target.value)}
+                            className={homeStyles.shareSelect}
+                            aria-label={`Permission for ${share.shared_with_email || 'collaborator'}`}
+                          >
+                            <option value="view">View</option>
+                            <option value="edit">Edit</option>
+                          </select>
+                          <button type="button" onClick={() => removeShare(share.id)} className={homeStyles.shareRemove}>
+                            Remove
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+          <button type="button" className={homeStyles.themeToggle} onClick={toggleTheme} title="Toggle light/dark mode">
+            {isLightMode ? '🌙 Dark' : '☀️ Light'}
           </button>
-          <span className={homeStyles.toolbarMeta}>
-            {shares.length ? `${shares.length} collaborator${shares.length > 1 ? 's' : ''}` : 'Not shared yet'}
-          </span>
-        </div>
-      )}
+          <button
+            type="button"
+            className={homeStyles.logoutButton}
+            onClick={() => {
+              localStorage.removeItem('token');
+              window.dispatchEvent(new Event('auth-changed'));
+              window.location.href = '/login';
+            }}
+          >
+            Logout
+          </button>
+          </>
+        )}
+      </Header>
       <form className={searchStyles.form} onSubmit={submitSearch}>
         <label className={searchStyles.label}>
           Search notes
@@ -216,54 +293,6 @@ export default function Home() {
         {search && <button type="button" onClick={clearSearch} className={searchStyles.button}>Clear</button>}
       </form>
       {saving && <p style={{ padding: '0 24px' }}>Saving...</p>}
-      {selectedNote && (
-        <div className={homeStyles.sharePanel}>
-          <div className={homeStyles.shareCard}>
-            <div className={homeStyles.shareHeader}>
-              <strong className={homeStyles.shareTitle}>Shared with</strong>
-              <button type="button" onClick={() => setShowShare(true)} className={homeStyles.shareAddButton}>
-                + Add access
-              </button>
-            </div>
-
-            {sharesError && <p className={homeStyles.shareError}>{sharesError}</p>}
-
-            {shares.length === 0 ? (
-              <p className={homeStyles.shareEmpty}>No collaborators yet. Share this note with someone to begin collaborating.</p>
-            ) : (
-              <div className={homeStyles.shareList}>
-                {shares.map((share) => (
-                  <div key={share.id} className={homeStyles.shareItem}>
-                    <div className={homeStyles.shareIdentity}>
-                      <div className={homeStyles.shareEmail}>
-                        {share.shared_with_email || share.shared_with_username || 'User'}
-                      </div>
-                      <div className={homeStyles.shareHandle}>
-                        {share.shared_with_username ? `@${share.shared_with_username}` : 'Collaborator'}
-                      </div>
-                    </div>
-
-                    <div className={homeStyles.shareControls}>
-                      <select
-                        value={share.permission}
-                        onChange={(event) => updateSharePermission(share.id, event.target.value)}
-                        className={homeStyles.shareSelect}
-                        aria-label={`Permission for ${share.shared_with_email || 'collaborator'}`}
-                      >
-                        <option value="view">View</option>
-                        <option value="edit">Edit</option>
-                      </select>
-                      <button type="button" onClick={() => removeShare(share.id)} className={homeStyles.shareRemove}>
-                        Remove
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-      )}
       {showShare && selectedNote && (
         <ShareModal
           noteId={selectedNote.id}

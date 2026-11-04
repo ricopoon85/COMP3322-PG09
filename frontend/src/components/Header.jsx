@@ -3,10 +3,11 @@ import React from 'react'
 import FileTitleInput from './FileTitleInput'
 import styles from './Header.module.css'
 
-export default function Header() {
+export default function Header({ navigation, children }) {
   return (
     <header className={styles.header}>
-      <h1 className={styles.title}>Web Note Hub</h1>
+      {navigation && <nav className={styles.navigation}>{navigation}</nav>}
+      {children && <div className={styles.actions}>{children}</div>}
     </header>
   );
 }

@@ -6,6 +6,26 @@
   border-bottom: 1px solid var(--color-accent);
   background-color: var(--color-surface-raised);
   padding: var(--space-sm) var(--space-md);
+  overflow: visible;
+  position: relative;
+  z-index: 30;
+}
+
+ .navigation {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
 }
 
 .title {
