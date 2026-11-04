@@ -10,6 +10,7 @@ a:hover {
 
 nav {
     display: flex;
+    align-items: center;
     gap: var(--space-sm);
     background-color: var(--color-surface);
     padding: var(--space-md);
@@ -36,9 +37,32 @@ nav {
     opacity: 1;
 }
 
+.theme-toggle {
+   margin-left: auto;
+   padding: var(--space-xs) var(--space-sm);
+   border: 1px solid var(--color-input-border);
+   border-radius: var(--radius-sm);
+   color: var(--color-text);
+   background-color: transparent;
+   font: inherit;
+   cursor: pointer;
+}
+
+.theme-toggle:hover {
+   background-color: var(--color-input-border);
+}
+
 .navbar {
-    padding: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
     flex-shrink: 0;
+    background-color: var(--color-surface);
+    border-bottom: 1px solid var(--color-input-border);
+}
+
+.app-title {
+    margin: 0;
+    color: var(--color-text);
+    font-size: 1.25rem;
 }
 
 .nav-button {
