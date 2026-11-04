@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { BrowserRouter, Routes, Route, Link, Navigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Home from './pages/Home'
 import Register from './pages/Register'
 import Login from './pages/Login'
@@ -34,14 +34,7 @@ function App() {
       <div className="page-container">
         {isLoggedIn && (
           <nav className="navbar">
-            <Link to="/">Home</Link> |  <Link to="/profile">Profile</Link>{' '}
-            <button className="logout" onClick={() => {
-              localStorage.removeItem('token')
-              window.dispatchEvent(new Event('auth-changed'))
-              window.location.href = '/login'
-            }}>
-              Logout
-            </button>
+            <h1 className="app-title">Web Note Hub</h1>
           </nav>
         )}
 
