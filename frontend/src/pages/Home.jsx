@@ -9,6 +9,61 @@ import { Link } from 'react-router-dom';
 import searchStyles from '../components/SearchBar.module.css';
 import homeStyles from './Home.module.css';
 
+const formattingGuide = {
+  clientId: 'formatting-guide',
+  title: 'Formatting Guide',
+  isFormattingGuide: true,
+  canEdit: false,
+  content: `
+    <h1>Welcome to Web Note Hub</h1>
+    <p>Use this note to explore every formatting function available.</p>
+
+    <h2>Text styles</h2>
+    <p><b>Bold</b> · <i>Italic</i> · <u>Underline</u> · <s>Strikethrough</s></p>
+    <p>
+      <span style="font-family: system-ui, sans-serif">Sans-serif</span> ·
+      <span style="font-family: Georgia, serif">Serif</span> ·
+      <span style="font-family: monospace">Monospace</span>
+    </p>
+
+    <h2>Headings and body text</h2>
+    <h1>Heading 1</h1>
+    <h2>Heading 2</h2>
+    <h3>Heading 3</h3>
+    <p>Body text</p>
+
+    <h2>Lists</h2>
+    <ul>
+      <li>Bullet one</li>
+      <li>Bullet two</li>
+    </ul>
+    <ol>
+      <li>Numbered one</li>
+      <li>Numbered two</li>
+    </ol>
+    <p>Type <b>-</b> or <b>*</b> then Space to create a bullet list. Type a number and . followed by Space to create a numbered list.</p>
+
+    <h2>Tasks</h2>
+    <p><input type="checkbox"> Try checking this box</p>
+
+    <h2>Highlights</h2>
+    <p>
+      <span style="background-color: rgba(255, 235, 59, 0.5)">Yellow</span> ·
+      <span style="background-color: rgba(76, 175, 80, 0.5)">Green</span> ·
+      <span style="background-color: rgba(0, 188, 212, 0.5)">Cyan</span> ·
+      <span style="background-color: rgba(233, 30, 99, 0.5)">Pink</span> ·
+      <span style="background-color: rgba(244, 67, 54, 0.5)">Red</span>
+    </p>
+
+    <h2>Separator</h2>
+    <p>Type <b>---</b> then Enter to insert a horizontal line:</p>
+    <hr>
+
+    <h2>Other controls</h2>
+    <p>Use Tab to indent.</p>
+  `.replace(/\s*\n\s*/g, '').trim(),
+};
+
 export default function Home() {
   const [notes, setNotes] = useState([]);
   const [selectedNote, setSelectedNote] = useState(null);
@@ -264,6 +319,7 @@ export default function Home() {
         searchQuery={search}
         onTitleChange={(title) => updateNote(selectedNote.id, { title })}
         onContentChange={(content) => updateNote(selectedNote.id, { content })}
+        onOpenGuide={() => setSelectedNote(formattingGuide)}
       />
     );
   };
@@ -273,6 +329,7 @@ export default function Home() {
       <Header navigation={<><Link to="/">Home</Link><span>|</span><Link to="/profile">Profile</Link></>}>
         {selectedNote && (
           <>
+            {!selectedNote.isFormattingGuide && (
             <div className={homeStyles.sharedWithWrap}>
             <button
               type="button"
@@ -323,22 +380,23 @@ export default function Home() {
               </div>
             )}
           </div>
-          <button type="button" className={homeStyles.themeToggle} onClick={toggleTheme} title="Toggle light/dark mode">
-            {isLightMode ? '🌙 Dark' : '☀️ Light'}
-          </button>
-          <button
-            type="button"
-            className={homeStyles.logoutButton}
-            onClick={() => {
-              localStorage.removeItem('token');
-              window.dispatchEvent(new Event('auth-changed'));
-              window.location.href = '/login';
-            }}
-          >
-            Logout
-          </button>
+            )}
           </>
         )}
+        <button type="button" className={homeStyles.themeToggle} onClick={toggleTheme} title="Toggle light/dark mode">
+          {isLightMode ? '🌙 Dark' : '☀️ Light'}
+        </button>
+        <button
+          type="button"
+          className={homeStyles.logoutButton}
+          onClick={() => {
+            localStorage.removeItem('token');
+            window.dispatchEvent(new Event('auth-changed'));
+            window.location.href = '/login';
+          }}
+        >
+          Logout
+        </button>
       </Header>
       <form className={searchStyles.form} onSubmit={submitSearch}>
         <label className={searchStyles.label}>

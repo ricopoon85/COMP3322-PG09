@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import styles from './Editor.module.css';
 import FormattingToolbar from './FormattingToolbar';
 
-export default function Editor({ note, searchQuery = '', onTitleChange, onContentChange }) {
+export default function Editor({ note, searchQuery = '', onTitleChange, onContentChange, onOpenGuide }) {
   const [title, setTitle] = useState(note?.title || '');
   const [content, setContent] = useState(note?.content || '');
   const [isLightMode, setIsLightMode] = useState(true);
@@ -439,7 +439,7 @@ export default function Editor({ note, searchQuery = '', onTitleChange, onConten
   };
 
   if (!note) return null;
-  const readOnly = note.shared && !note.canEdit;
+  const readOnly = note.isFormattingGuide || (note.shared && !note.canEdit);
 
   return (
     <main className={styles.editor}>
@@ -447,6 +447,7 @@ export default function Editor({ note, searchQuery = '', onTitleChange, onConten
         applyFormat={applyFormat} 
         toggleTheme={toggleTheme} 
         isLightMode={isLightMode} 
+        onOpenGuide={onOpenGuide}
       />
 
       <input

@@ -47,3 +47,19 @@
 .colorBtn:hover {
   transform: scale(1.1);
 }
+
+.guideButton {
+  margin-left: auto;
+  white-space: nowrap;
+  border-color: var(--color-input-border);
+  background: transparent;
+  color: var(--color-text);
+  font: inherit;
+  border-radius: var(--radius-sm);
+  padding: var(--space-xs) var(--space-sm);
+}
+
+.guideButton:hover {
+  background-color: var(--color-input-border);
+  border-color: var(--color-input-border);
+}

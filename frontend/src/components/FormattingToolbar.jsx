@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './FormattingToolbar.module.css';
 
-export default function FormattingToolbar({ applyFormat }) {
+export default function FormattingToolbar({ applyFormat, onOpenGuide }) {
   
   const getHighlightColor = (varName) => {
     return getComputedStyle(document.body).getPropertyValue(varName).trim();
@@ -105,6 +105,16 @@ export default function FormattingToolbar({ applyFormat }) {
         <button type="button" onClick={() => applyFormat('hiliteColor', getHighlightColor('--hl-red'))} className={styles.colorBtn} style={{backgroundColor: 'var(--hl-red)'}} title="Red"></button>
         <button type="button" onClick={() => applyFormat('hiliteColor', 'transparent')} className={styles.colorBtn} style={{backgroundColor: 'transparent', border: '1px solid var(--color-text)'}} title="Remove Highlight"></button>
       </div>
+
+      {onOpenGuide && (
+        <button
+          type="button"
+          className={`${styles.toolBtn} ${styles.guideButton}`}
+          onClick={onOpenGuide}
+        >
+          Formatting Guide
+        </button>
+      )}
 
     </div>
   );
