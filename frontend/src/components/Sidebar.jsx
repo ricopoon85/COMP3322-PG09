@@ -23,18 +23,34 @@ export default function Sidebar({
         <ul className={styles.noteList}>
           {notes.map((note) => (
             <li
-              key={note.id}
+              key={note.clientId || note.id}
               className={
-                note.id === selectedId
+                (note.clientId || note.id) === selectedId
                   ? `${styles.noteItem} ${styles.active}`
                   : styles.noteItem
               }
               onClick={() => onSelect(note)}
             >
-              <span className={styles.noteTitle}>
-                {note.title || 'Untitled Note'}
+              <span className={styles.noteText}>
+                <span className={styles.noteTitle}>
+                  {note.title || 'Untitled Note'}
+                </span>
+                {note.shared && (
+                  <span className={styles.sharedNoteMeta}>
+                    <span>Shared by {note.owner_username || 'another user'}</span>
+                    <span>{note.permission === 'edit' ? 'Can edit' : 'View only'}</span>
+                  </span>
+                )}
+                {!note.shared && note.sharedWith?.map((share) => (
+                  <span className={styles.sharedNoteMeta} key={share.id}>
+                    <span>
+                      Shared with {share.shared_with_username || share.shared_with_email || 'another user'}
+                    </span>
+                    <span>{share.permission === 'edit' ? 'Can edit' : 'View only'}</span>
+                  </span>
+                ))}
               </span>
-              <button
+              {!note.shared && <button
                 className={styles.deleteButton}
                 onClick={(e) => {
                   e.stopPropagation();
@@ -42,7 +58,7 @@ export default function Sidebar({
                 }}
               >
                 ×
-              </button>
+              </button>}
             </li>
           ))}
         </ul>

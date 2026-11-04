@@ -71,6 +71,23 @@
   flex: 1;
 }
 
+.noteText {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.sharedNoteMeta {
+  display: flex;
+  flex-direction: column;
+  color: var(--color-text-muted);
+  font-size: 0.72rem;
+  line-height: 1.25;
+  overflow: hidden;
+}
+
 .deleteButton {
   margin-left: var(--space-xs);
   border: none;

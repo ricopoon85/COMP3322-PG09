@@ -21,6 +21,25 @@ const deleteNote = async (id) => {
   await api.delete(`/notes/${id}`);
 };
 
+const listSharedNotes = async () => {
+  const response = await api.get('/shared-notes');
+  return response.data.data.map((note) => ({
+    ...note,
+    clientId: `shared-${note.id}`,
+    shared: true,
+    canEdit: note.permission === 'edit',
+  }));
+};
+
+const updateSharedNote = async (id, fields) => {
+  const response = await api.patch(`/shared-notes/${id}`, fields);
+  return {
+    ...response.data.data,
+    clientId: `shared-${response.data.data.id}`,
+    shared: true,
+  };
+};
+
 const createShare = async (noteId, email, permission = 'view') => {
   const response = await api.post(`/notes/${noteId}/shares`, { email, permission });
   return response.data.data;
@@ -47,6 +66,8 @@ export default {
   createNote,
   updateNote,
   deleteNote,
+  listSharedNotes,
+  updateSharedNote,
   createShare,
   listShares,
   updateShare,

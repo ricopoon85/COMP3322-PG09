@@ -439,6 +439,7 @@ export default function Editor({ note, searchQuery = '', onTitleChange, onConten
   };
 
   if (!note) return null;
+  const readOnly = note.shared && !note.canEdit;
 
   return (
     <main className={styles.editor}>
@@ -454,12 +455,13 @@ export default function Editor({ note, searchQuery = '', onTitleChange, onConten
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder="Title"
+        disabled={readOnly}
       />
       
       <div
         ref={editorRef}
         className={`scroll-container ${styles.textarea}`}
-        contentEditable={true}
+        contentEditable={!readOnly}
         onInput={(e) => setContent(e.currentTarget.innerHTML)}
         onKeyDown={handleKeyDown}
         onClick={handleEditorClick}

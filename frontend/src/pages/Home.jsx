@@ -39,10 +39,32 @@ export default function Home() {
     setError('');
     try {
       const loadedNotes = await noteService.listNotes(query);
-      setNotes(loadedNotes);
+      const sharedNotes = query ? [] : await noteService.listSharedNotes();
+      const ownedNotesWithShares = await Promise.all(
+        loadedNotes.map(async (note) => {
+          if (query) return { ...note, sharedWith: [] };
+          try {
+            return {
+              ...note,
+              sharedWith: await noteService.listShares(note.id),
+            };
+          } catch {
+            return { ...note, sharedWith: [] };
+          }
+        })
+      );
+      const combinedNotes = [
+        ...ownedNotesWithShares.map((note) => ({ ...note, shared: false })),
+        ...sharedNotes,
+      ];
+      setNotes(combinedNotes);
       setSelectedNote((current) =>
-        loadedNotes.find((note) => note.id === current?.id) ||
-        loadedNotes[0] ||
+        combinedNotes.find((note) =>
+          note.shared
+            ? note.clientId === current?.clientId
+            : note.id === current?.id
+        ) ||
+        combinedNotes[0] ||
         null
       );
     } catch (requestError) {
@@ -80,12 +102,24 @@ export default function Home() {
     );
     setSaving(true);
     try {
-      const updatedNote = await noteService.updateNote(id, fields);
+      const currentNote = selectedNote?.id === id ? selectedNote : notes.find((note) => note.id === id);
+      const updatedNote = currentNote?.shared
+        ? await noteService.updateSharedNote(id, fields)
+        : await noteService.updateNote(id, fields);
+      const noteToStore = currentNote?.shared
+        ? {
+            ...currentNote,
+            ...updatedNote,
+            shared: true,
+            canEdit: currentNote.canEdit,
+            permission: currentNote.permission,
+          }
+        : updatedNote;
       setNotes((previous) =>
-        previous.map((note) => (note.id === id ? updatedNote : note))
+        previous.map((note) => (note.id === id ? noteToStore : note))
       );
       setSelectedNote((previous) =>
-        previous?.id === id ? updatedNote : previous
+        previous?.id === id ? noteToStore : previous
       );
     } catch (requestError) {
       handleRequestError(requestError);
@@ -143,6 +177,13 @@ export default function Home() {
     try {
       const nextShares = await noteService.listShares(noteId);
       setShares(nextShares);
+      setNotes((previous) =>
+        previous.map((note) =>
+          note.id === noteId && !note.shared
+            ? { ...note, sharedWith: nextShares }
+            : note
+        )
+      );
       setSharesError('');
     } catch (requestError) {
       setSharesError(requestError.response?.data?.error || 'Unable to load shares.');
@@ -162,6 +203,18 @@ export default function Home() {
       setShares((previous) =>
         previous.map((share) => (share.id === shareId ? { ...share, ...updatedShare } : share))
       );
+      setNotes((previous) =>
+        previous.map((note) =>
+          note.id === selectedNote.id && !note.shared
+            ? {
+                ...note,
+                sharedWith: (note.sharedWith || []).map((share) =>
+                  share.id === shareId ? { ...share, ...updatedShare } : share
+                ),
+              }
+            : note
+        )
+      );
     } catch (requestError) {
       setSharesError(requestError.response?.data?.error || 'Unable to update permission.');
     }
@@ -173,6 +226,16 @@ export default function Home() {
     try {
       await noteService.deleteShare(selectedNote.id, shareId);
       setShares((previous) => previous.filter((share) => share.id !== shareId));
+      setNotes((previous) =>
+        previous.map((note) =>
+          note.id === selectedNote.id && !note.shared
+            ? {
+                ...note,
+                sharedWith: (note.sharedWith || []).filter((share) => share.id !== shareId),
+              }
+            : note
+        )
+      );
     } catch (requestError) {
       setSharesError(requestError.response?.data?.error || 'Unable to remove access.');
     }
@@ -306,7 +369,7 @@ export default function Home() {
       <div className="content">
         <Sidebar
           notes={notes}
-          selectedId={selectedNote?.id}
+          selectedId={selectedNote?.clientId || selectedNote?.id}
           onSelect={setSelectedNote}
           onCreate={createNote}
           onDelete={deleteNote}
