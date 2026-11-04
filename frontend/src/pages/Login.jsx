@@ -26,7 +26,7 @@ export default function Login() {
       window.dispatchEvent(new Event('auth-changed'));
       setMsg('Login success');
       setMsgType('success');
-      navigate('/profile');
+      navigate('/');
     } catch (err) {
       const errMsg = err?.response?.data?.error || 'Login failed';
 
