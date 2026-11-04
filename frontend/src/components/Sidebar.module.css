@@ -49,6 +49,7 @@
   justify-content: space-between;
   padding: var(--space-xs) var(--space-sm);
   margin: var(--space-xs) 0;
+  border: 1px solid transparent;
   border-radius: var(--radius-sm);
   background-color: var(--color-surface-muted);
   cursor: pointer;
@@ -60,8 +61,7 @@
 }
 
 .active {
-  background-color: var(--color-accent);
-  color: white;
+  border-color: var(--color-accent);
 }
 
 .noteTitle {
