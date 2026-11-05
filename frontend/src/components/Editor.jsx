@@ -356,36 +356,55 @@ export default function Editor({ note, searchQuery = '', onTitleChange, onConten
       ? range.startContainer.closest('h1, h2, h3, p, div')
       : range.startContainer.parentElement?.closest('h1, h2, h3, p, div');
 
-    if (block && block !== editorRef.current && range.collapsed) {
-      const after = document.createRange();
-      after.setStart(range.startContainer, range.startOffset);
-      after.setEnd(block, block.childNodes.length);
-      const trailingContent = after.extractContents();
+    const isBlockEmpty = block && block !== editorRef.current && 
+                         (block.textContent.trim() === '' || block.innerHTML === '<br>');
 
-      const paragraph = document.createElement('p');
-      paragraph.appendChild(document.createElement('br'));
-      block.after(paragraph);
-
-      if (trailingContent.childNodes.length && trailingContent.textContent) {
-        paragraph.textContent = '';
-        paragraph.appendChild(trailingContent);
+    if (block && block !== editorRef.current) {
+      if (isBlockEmpty) {
+        const emptyLine = document.createElement('p');
+        emptyLine.appendChild(document.createElement('br'));
+        block.after(emptyLine);
+        
+        range.setStart(emptyLine, 0);
+        range.collapse(true);
+        selection.removeAllRanges();
+        selection.addRange(range);
+        return;
       }
 
-      if (!paragraph.textContent) {
-        range.setStartAfter(paragraph.firstChild);
-      } else {
-        range.selectNodeContents(paragraph);
-        range.collapse(false);
+      if (range.collapsed) {
+        const after = document.createRange();
+        after.setStart(range.startContainer, range.startOffset);
+        after.setEnd(block, block.childNodes.length);
+        const trailingContent = after.extractContents();
+
+        const paragraph = document.createElement('p');
+        paragraph.appendChild(document.createElement('br'));
+        block.after(paragraph);
+
+        if (trailingContent.textContent) {
+          const contentLine = document.createElement('p');
+          contentLine.appendChild(trailingContent);
+          block.after(contentLine);
+          paragraph.remove();
+          range.selectNodeContents(contentLine);
+          range.collapse(false);
+        } else {
+          range.setStart(paragraph, 0);
+          range.collapse(true);
+        }
+
+        selection.removeAllRanges();
+        selection.addRange(range);
+        return;
       }
-      range.collapse(true);
-      selection.removeAllRanges();
-      selection.addRange(range);
-      return;
     }
 
-    const br = document.createElement('br');
-    range.insertNode(br);
-    range.setStartAfter(br);
+    const paragraph = document.createElement('p');
+    paragraph.appendChild(document.createElement('br'));
+    range.deleteContents();
+    range.insertNode(paragraph);
+    range.setStart(paragraph, 0);
     range.collapse(true);
     selection.removeAllRanges();
     selection.addRange(range);
