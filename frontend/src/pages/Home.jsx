@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import Editor from '../components/Editor';
@@ -72,10 +72,12 @@ export default function Home() {
   const [error, setError] = useState('');
   const [saving, setSaving] = useState(false);
   const [showShare, setShowShare] = useState(false);
+  const [showImport, setShowImport] = useState(false);
   const [shares, setShares] = useState([]);
   const [sharesError, setSharesError] = useState('');
   const [showSharedWith, setShowSharedWith] = useState(false);
   const [isLightMode, setIsLightMode] = useState(() => !document.body.classList.contains('dark-mode'));
+  const importInputRef = useRef(null);
 
   const handleRequestError = useCallback((requestError) => {
     if (requestError.response?.status === 401) {
@@ -142,6 +144,60 @@ export default function Home() {
       });
       setNotes((previous) => [newNote, ...previous]);
       setSelectedNote(newNote);
+    } catch (requestError) {
+      handleRequestError(requestError);
+    }
+  };
+
+  const openImportPicker = () => {
+    setShowImport(true);
+  };
+
+  const chooseImportFile = () => {
+    importInputRef.current?.click();
+  };
+
+  const importNoteFile = async (event) => {
+    const file = event.target.files?.[0];
+    event.target.value = '';
+    if (!file) return;
+    setShowImport(false);
+
+    if (file.size > 1024 * 1024) {
+      setError('Imported file must be at most 1 MB.');
+      return;
+    }
+
+    try {
+      setError('');
+      const imageTypes = new Set(['image/png', 'image/jpeg', 'image/gif', 'image/webp']);
+      let mimeType = file.type;
+      if (!mimeType) {
+        if (/\.md$/i.test(file.name)) mimeType = 'text/markdown';
+        else if (/\.json$/i.test(file.name)) mimeType = 'application/json';
+        else mimeType = 'text/plain';
+      }
+
+      let content;
+      if (imageTypes.has(mimeType)) {
+        const dataUrl = await new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result);
+          reader.onerror = () => reject(reader.error);
+          reader.readAsDataURL(file);
+        });
+        content = dataUrl.split(',')[1];
+      } else {
+        content = await file.text();
+      }
+
+      const importedNote = await noteService.importNote({
+        filename: file.name,
+        mimeType,
+        content,
+      });
+      setNotes((previous) => [importedNote, ...previous]);
+      setSelectedNote(importedNote);
     } catch (requestError) {
       handleRequestError(requestError);
     }
@@ -413,6 +469,45 @@ export default function Home() {
         <button type="submit" className={searchStyles.button}>Search</button>
         {search && <button type="button" onClick={clearSearch} className={searchStyles.button}>Clear</button>}
       </form>
+      <input
+        ref={importInputRef}
+        type="file"
+        accept=".txt,.md,.json,.png,.jpg,.jpeg,.gif,.webp"
+        onChange={importNoteFile}
+        hidden
+      />
+      {showImport && (
+        <div className={homeStyles.importOverlay} onMouseDown={(event) => {
+          if (event.target === event.currentTarget) setShowImport(false);
+        }}>
+          <div className={homeStyles.importModal} role="dialog" aria-modal="true" aria-labelledby="import-title">
+            <div className={homeStyles.importHeader}>
+              <h3 id="import-title">Import note</h3>
+              <button
+                type="button"
+                className={homeStyles.importClose}
+                onClick={() => setShowImport(false)}
+                aria-label="Close import dialog"
+              >
+                ×
+              </button>
+            </div>
+            <p>Choose a file to create a new note.</p>
+            <p className={homeStyles.importFormats}>
+              Accepted formats: TXT, Markdown (.md), JSON, PNG, JPG/JPEG, GIF and WebP.
+            </p>
+            <p className={homeStyles.importFormats}>Maximum file size: 1 MB</p>
+            <div className={homeStyles.importActions}>
+              <button type="button" className={homeStyles.importCancel} onClick={() => setShowImport(false)}>
+                Cancel
+              </button>
+              <button type="button" className={homeStyles.importChoose} onClick={chooseImportFile}>
+                Choose file
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       {saving && <p style={{ padding: '0 24px' }}>Saving...</p>}
       {showShare && selectedNote && (
         <ShareModal
@@ -430,6 +525,7 @@ export default function Home() {
           selectedId={selectedNote?.clientId || selectedNote?.id}
           onSelect={setSelectedNote}
           onCreate={createNote}
+          onImport={openImportPicker}
           onDelete={deleteNote}
         />
         {renderContent()}

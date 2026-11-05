@@ -6,15 +6,21 @@ export default function Sidebar({
   selectedId,
   onSelect,
   onCreate,
+  onImport,
   onDelete,
 }) {
   return (
     <aside className={`scroll-container ${styles.sidebar}`}>
       <div className={styles.headingRow}>
         <p className={styles.heading}>Your notes</p>
-        <button className={styles.newButton} onClick={onCreate}>
-          + New
-        </button>
+        <div className={styles.headingActions}>
+          <button className={styles.newButton} onClick={onImport}>
+            Import
+          </button>
+          <button className={styles.newButton} onClick={onCreate}>
+            + New
+          </button>
+        </div>
       </div>
 
       {notes.length === 0 ? (

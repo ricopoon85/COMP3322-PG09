@@ -21,6 +21,15 @@ const deleteNote = async (id) => {
   await api.delete(`/notes/${id}`);
 };
 
+const importNote = async ({ filename, mimeType, content }) => {
+  const response = await api.post('/notes/import', {
+    filename,
+    mimeType,
+    content,
+  });
+  return response.data.data;
+};
+
 const listSharedNotes = async () => {
   const response = await api.get('/shared-notes');
   return response.data.data.map((note) => ({
@@ -66,6 +75,7 @@ export default {
   createNote,
   updateNote,
   deleteNote,
+  importNote,
   listSharedNotes,
   updateSharedNote,
   createShare,
