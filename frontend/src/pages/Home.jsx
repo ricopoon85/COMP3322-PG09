@@ -5,6 +5,7 @@ import Editor from '../components/Editor';
 import ShareModal from '../components/ShareModal';
 import noteService from '../services/noteService';
 import { Link } from 'react-router-dom';
+import birglDog from '../assets/birgl-dog.jpg';
 
 import searchStyles from '../components/SearchBar.module.css';
 import homeStyles from './Home.module.css';
@@ -62,6 +63,10 @@ const formattingGuide = {
 
     <h2>Other controls</h2>
     <p>Use Tab to indent.</p>
+
+    <h2>Images</h2>
+    <img src="${birglDog}" alt="A cute puppy" width="320">
+    <p>Here's a cute puppy for you &lt;:</p>
   `.replace(/\s*\n\s*/g, '').trim(),
 };
 

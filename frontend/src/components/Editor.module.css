@@ -52,6 +52,13 @@
 .textarea h2 { font-size: 1.5rem; margin: 8px 0; font-weight: bold; }
 .textarea h3 { font-size: 1.2rem; margin: 6px 0; font-weight: bold; }
 .textarea p { margin: 4px 0; }
+.textarea img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: var(--space-md) 0;
+  border-radius: var(--radius-sm);
+}
 
 .textarea hr {
   border: none;
