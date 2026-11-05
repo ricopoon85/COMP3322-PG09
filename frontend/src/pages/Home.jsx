@@ -473,7 +473,7 @@ export default function Home() {
       <input
         ref={importInputRef}
         type="file"
-        accept=".txt,.md,.json,.png,.jpg,.jpeg,.gif,.webp"
+        accept=".txt,.md,.json"
         onChange={importNoteFile}
         hidden
       />
