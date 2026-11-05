@@ -495,7 +495,7 @@ export default function Home() {
             </div>
             <p>Choose a file to create a new note.</p>
             <p className={homeStyles.importFormats}>
-              Accepted formats: TXT, Markdown (.md), JSON, PNG, JPG/JPEG, GIF and WebP.
+              Accepted formats: TXT, Markdown (.md), JSON.
             </p>
             <p className={homeStyles.importFormats}>Maximum file size: 1 MB</p>
             <div className={homeStyles.importActions}>
