@@ -44,7 +44,8 @@ const formattingGuide = {
     <p>Type <b>-</b> or <b>*</b> then Space to create a bullet list. Type a number and . followed by Space to create a numbered list.</p>
 
     <h2>Tasks</h2>
-    <p><input type="checkbox"> Try checking this box (P.S. add it using [] + space)</p>
+    <p><input type="checkbox"> Try checking this box</p>
+    <p>Type <b>[ ]</b> then Space to create a task list.</p>
 
     <h2>Highlights</h2>
     <p>
