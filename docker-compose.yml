@@ -25,6 +25,7 @@ services:
       MYSQL_DATABASE: notes_app
     volumes:
       - mysql_data:/var/lib/mysql
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
     restart: always
 
 volumes:
