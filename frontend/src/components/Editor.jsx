@@ -1,20 +1,66 @@
 import { useEffect, useState, useRef } from 'react';
 import styles from './Editor.module.css';
 import FormattingToolbar from './FormattingToolbar';
+import noteService from '../services/noteService';
 
 export default function Editor({ note, searchQuery = '', onTitleChange, onContentChange, onOpenGuide }) {
   const [title, setTitle] = useState(note?.title || '');
   const [content, setContent] = useState(note?.content || '');
   const [isLightMode, setIsLightMode] = useState(true);
+  const [imageError, setImageError] = useState('');
   const editorRef = useRef(null);
+  const savedRangeRef = useRef(null);
+  const imageUrlsRef = useRef(new Map());
+  const pendingImageDeletesRef = useRef(new Set());
+  const selectedImageRef = useRef(null);
+
+  function revokeImageUrls() {
+    imageUrlsRef.current.forEach((url) => URL.revokeObjectURL(url));
+    imageUrlsRef.current.clear();
+  }
 
   useEffect(() => {
     setTitle(note?.title || '');
     setContent(note?.content || '');
+    revokeImageUrls();
+    selectedImageRef.current = null;
     if (editorRef.current && note?.content !== editorRef.current.innerHTML) {
       editorRef.current.innerHTML = note?.content || '';
     }
   }, [note?.id]);
+
+  useEffect(() => {
+    let cancelled = false;
+    const images = editorRef.current?.querySelectorAll('img[data-image-id]') || [];
+
+    const resolveImages = async () => {
+      await Promise.all([...images].map(async (image) => {
+        const imageId = image.dataset.imageId;
+        if (!imageId || imageUrlsRef.current.has(imageId)) {
+          if (imageId && imageUrlsRef.current.has(imageId)) {
+            image.src = imageUrlsRef.current.get(imageId);
+          }
+          return;
+        }
+        try {
+          const blob = await noteService.fetchImage(imageId);
+          if (cancelled) return;
+          const objectUrl = URL.createObjectURL(blob);
+          imageUrlsRef.current.set(imageId, objectUrl);
+          image.src = objectUrl;
+        } catch {
+          image.alt = `${image.alt || 'Image'} (unavailable)`;
+        }
+      }));
+    };
+
+    resolveImages();
+    return () => {
+      cancelled = true;
+    };
+  }, [note?.id, note?.content]);
+
+  useEffect(() => () => revokeImageUrls(), []);
 
   useEffect(() => {
     const editor = editorRef.current;
@@ -72,10 +118,29 @@ export default function Editor({ note, searchQuery = '', onTitleChange, onConten
   useEffect(() => {
     if (!note) return;
     const timer = setTimeout(() => {
-      if (content !== note.content) onContentChange(content);
+      if (content === note.content) return;
+      Promise.resolve(onContentChange(content)).then(() => {
+        const imageIds = [...pendingImageDeletesRef.current];
+        pendingImageDeletesRef.current.clear();
+        return Promise.all(imageIds.map((imageId) => noteService.deleteImage(imageId)));
+      }).catch(() => {
+        setImageError('Unable to save the image changes.');
+      });
     }, 500);
     return () => clearTimeout(timer);
   }, [content, note, onContentChange]);
+
+  const getPersistedContent = () => {
+    const snapshot = editorRef.current.cloneNode(true);
+    snapshot.querySelectorAll(`.${styles.searchHighlight}`).forEach((mark) => {
+      mark.replaceWith(document.createTextNode(mark.textContent));
+    });
+    snapshot.querySelectorAll('img[data-image-id]').forEach((image) => {
+      image.removeAttribute('src');
+      image.classList.remove(styles.noteImageSelected);
+    });
+    return snapshot.innerHTML;
+  };
 
   const applyFormat = (command, value = null) => {
     document.execCommand(command, false, value);
@@ -99,9 +164,119 @@ export default function Editor({ note, searchQuery = '', onTitleChange, onConten
     }
   };
 
+  const saveEditorSelection = () => {
+    const selection = window.getSelection();
+    if (!selection?.rangeCount) return;
+    const range = selection.getRangeAt(0);
+    if (editorRef.current?.contains(range.commonAncestorContainer)) {
+      savedRangeRef.current = range.cloneRange();
+    }
+  };
+
+  const queueImageDelete = (imageId) => {
+    if (imageId) pendingImageDeletesRef.current.add(imageId);
+  };
+
+  const removeImageElement = (image) => {
+    if (!(image instanceof HTMLImageElement)) return false;
+    queueImageDelete(image.dataset.imageId);
+    image.remove();
+    selectedImageRef.current = null;
+    updateContentState();
+    return true;
+  };
+
+  const removeAdjacentImage = (range, direction) => {
+    if (!range.collapsed) return false;
+    let container = range.startContainer;
+    let offset = range.startOffset;
+
+    if (container.nodeType === Node.TEXT_NODE) {
+      if (direction === 'backward' && offset !== 0) return false;
+      if (direction === 'forward' && offset !== container.length) return false;
+      container = container.parentNode;
+      const textIndex = [...container.childNodes].indexOf(range.startContainer);
+      offset = textIndex + (direction === 'forward' ? 1 : 0);
+    }
+
+    const image = direction === 'backward'
+      ? container.childNodes[offset - 1]
+      : container.childNodes[offset];
+    return removeImageElement(image);
+  };
+
+  const handleImageUpload = async (file) => {
+    if (!note || file.size > 5 * 1024 * 1024) {
+      setImageError('Images must be at most 5 MB.');
+      return;
+    }
+    const allowedTypes = new Set(['image/png', 'image/jpeg', 'image/gif', 'image/webp']);
+    if (!allowedTypes.has(file.type)) {
+      setImageError('Unsupported image type.');
+      return;
+    }
+
+    try {
+      setImageError('');
+      const base64 = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(String(reader.result).split(',')[1]);
+        reader.onerror = () => reject(reader.error);
+        reader.readAsDataURL(file);
+      });
+      const uploaded = await noteService.uploadImage(note.id, {
+        filename: file.name,
+        mimeType: file.type,
+        content: base64,
+      });
+
+      const image = document.createElement('img');
+      image.dataset.imageId = String(uploaded.id);
+      image.alt = uploaded.original_name || file.name;
+      image.className = styles.noteImage;
+
+      const blob = await noteService.fetchImage(uploaded.id);
+      const objectUrl = URL.createObjectURL(blob);
+      imageUrlsRef.current.set(String(uploaded.id), objectUrl);
+      image.src = objectUrl;
+
+      const range = savedRangeRef.current;
+      if (range && editorRef.current.contains(range.commonAncestorContainer)) {
+        range.deleteContents();
+        range.insertNode(image);
+        range.setStartAfter(image);
+        range.collapse(true);
+      } else {
+        editorRef.current.append(image);
+      }
+      editorRef.current.focus();
+      savedRangeRef.current = null;
+      updateContentState();
+    } catch (error) {
+      setImageError(error.response?.data?.error || 'Unable to insert image.');
+    }
+  };
+
   const handleKeyDown = (e) => {
     const editor = editorRef.current;
     if (!editor) return;
+
+    if (e.key === 'Backspace' || e.key === 'Delete') {
+      const selectedImage = selectedImageRef.current;
+      if (selectedImage && editor.contains(selectedImage)) {
+        e.preventDefault();
+        removeImageElement(selectedImage);
+        return;
+      }
+      const selection = window.getSelection();
+      if (selection?.rangeCount && removeAdjacentImage(
+        selection.getRangeAt(0),
+        e.key === 'Backspace' ? 'backward' : 'forward'
+      )) {
+        e.preventDefault();
+        return;
+      }
+    }
 
     if (e.metaKey || e.ctrlKey) {
       if (e.key === 'b') {
@@ -449,11 +624,20 @@ export default function Editor({ note, searchQuery = '', onTitleChange, onConten
     if (e.target.tagName === 'INPUT' && e.target.type === 'checkbox') {
       updateContentState();
     }
+    if (e.target instanceof HTMLImageElement && e.target.dataset.imageId) {
+      editorRef.current.querySelectorAll(`.${styles.noteImageSelected}`).forEach((image) => {
+        image.classList.remove(styles.noteImageSelected);
+      });
+      e.target.classList.add(styles.noteImageSelected);
+      selectedImageRef.current = e.target;
+      return;
+    }
+    selectedImageRef.current = null;
   };
 
   const updateContentState = () => {
     if (editorRef.current) {
-      setContent(editorRef.current.innerHTML);
+      setContent(getPersistedContent());
     }
   };
 
@@ -467,6 +651,8 @@ export default function Editor({ note, searchQuery = '', onTitleChange, onConten
         toggleTheme={toggleTheme} 
         isLightMode={isLightMode} 
         onOpenGuide={onOpenGuide}
+        onPrepareImageUpload={saveEditorSelection}
+        onImageUpload={readOnly ? null : handleImageUpload}
       />
 
       <input
@@ -482,12 +668,13 @@ export default function Editor({ note, searchQuery = '', onTitleChange, onConten
         ref={editorRef}
         className={`scroll-container ${styles.textarea}`}
         contentEditable={!readOnly}
-        onInput={(e) => setContent(e.currentTarget.innerHTML)}
+        onInput={updateContentState}
         onKeyDown={handleKeyDown}
         onClick={handleEditorClick}
         placeholder="Start writing..."
         suppressContentEditableWarning={true}
       />
+      {imageError && <p className={styles.imageError}>{imageError}</p>}
     </main>
   );
 }

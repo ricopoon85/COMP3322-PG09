@@ -1,7 +1,13 @@
 import React from 'react';
 import styles from './FormattingToolbar.module.css';
 
-export default function FormattingToolbar({ applyFormat, onOpenGuide }) {
+export default function FormattingToolbar({
+  applyFormat,
+  onOpenGuide,
+  onImageUpload,
+  onPrepareImageUpload,
+}) {
+  const imageInputRef = React.useRef(null);
   
   const getHighlightColor = (varName) => {
     return getComputedStyle(document.body).getPropertyValue(varName).trim();
@@ -105,6 +111,31 @@ export default function FormattingToolbar({ applyFormat, onOpenGuide }) {
         <button type="button" onClick={() => applyFormat('hiliteColor', getHighlightColor('--hl-red'))} className={styles.colorBtn} style={{backgroundColor: 'var(--hl-red)'}} title="Red"></button>
         <button type="button" onClick={() => applyFormat('hiliteColor', 'transparent')} className={styles.colorBtn} style={{backgroundColor: 'transparent', border: '1px solid var(--color-text)'}} title="Remove Highlight"></button>
       </div>
+
+      {onImageUpload && (
+        <>
+          <input
+            ref={imageInputRef}
+            type="file"
+            accept="image/png,image/jpeg,image/gif,image/webp"
+            hidden
+            onChange={(event) => {
+              const file = event.target.files?.[0];
+              event.target.value = '';
+              if (file) onImageUpload(file);
+            }}
+          />
+          <button
+            type="button"
+            className={styles.toolBtn}
+            onMouseDown={onPrepareImageUpload}
+            onClick={() => imageInputRef.current?.click()}
+            title="Insert image"
+          >
+            Image
+          </button>
+        </>
+      )}
 
       {onOpenGuide && (
         <button

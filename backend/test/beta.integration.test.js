@@ -186,6 +186,18 @@ test('uploads and serves note images only to authorized users', async () => {
     { headers: auth(bob.token) }
   );
   assert.equal(unauthorizedResponse.status, 404);
+
+  const unauthorizedDeleteResponse = await fetch(
+    `${baseUrl.replace('/api', '')}${uploaded.data.url}`,
+    { method: 'DELETE', headers: auth(bob.token) }
+  );
+  assert.equal(unauthorizedDeleteResponse.status, 404);
+
+  const deletedResponse = await fetch(
+    `${baseUrl.replace('/api', '')}${uploaded.data.url}`,
+    { method: 'DELETE', headers: auth(alice.token) }
+  );
+  assert.equal(deletedResponse.status, 204);
 });
 
 test('shares notes with view and edit permissions', async () => {

@@ -118,4 +118,28 @@ const getImage = async (req, res, next) => {
   }
 };
 
-module.exports = { uploadImage, getImage, storageDirectory, MAX_IMAGE_BYTES };
+const deleteImage = async (req, res, next) => {
+  try {
+    const imageId = parseId(req.params.id, 'image id');
+    const image = await imageModel.findEditableById(req.user.userId, imageId);
+    if (!image) {
+      return res.status(404).json({ success: false, error: 'Image not found' });
+    }
+
+    await fs.unlink(path.join(storageDirectory, image.storage_key)).catch((error) => {
+      if (error.code !== 'ENOENT') throw error;
+    });
+    await imageModel.remove(imageId);
+    return res.status(204).send();
+  } catch (error) {
+    return next(error);
+  }
+};
+
+module.exports = {
+  uploadImage,
+  getImage,
+  deleteImage,
+  storageDirectory,
+  MAX_IMAGE_BYTES,
+};

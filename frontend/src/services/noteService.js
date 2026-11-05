@@ -30,6 +30,26 @@ const importNote = async ({ filename, mimeType, content }) => {
   return response.data.data;
 };
 
+const uploadImage = async (noteId, { filename, mimeType, content }) => {
+  const response = await api.post(`/notes/${noteId}/images`, {
+    filename,
+    mimeType,
+    content,
+  });
+  return response.data.data;
+};
+
+const fetchImage = async (imageId) => {
+  const response = await api.get(`/images/${imageId}`, {
+    responseType: 'blob',
+  });
+  return response.data;
+};
+
+const deleteImage = async (imageId) => {
+  await api.delete(`/images/${imageId}`);
+};
+
 const listSharedNotes = async () => {
   const response = await api.get('/shared-notes');
   return response.data.data.map((note) => ({
@@ -76,6 +96,9 @@ export default {
   updateNote,
   deleteNote,
   importNote,
+  uploadImage,
+  fetchImage,
+  deleteImage,
   listSharedNotes,
   updateSharedNote,
   createShare,

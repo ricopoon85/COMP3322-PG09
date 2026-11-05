@@ -17,6 +17,7 @@ app.use(express.json({ limit: '8mb' }));
 app.use('/api/auth', authRoutes);
 app.use('/api/notes', noteRoutes);
 app.get('/api/images/:id', authMiddleware, imageController.getImage);
+app.delete('/api/images/:id', authMiddleware, imageController.deleteImage);
 app.use('/api/shared-notes', shareRoutes);
 app.get('/api/health', async (req, res, next) => {
   try {

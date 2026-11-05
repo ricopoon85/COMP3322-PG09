@@ -32,6 +32,31 @@ const imageModel = {
     );
     return rows[0];
   },
+
+  async findEditableById(userId, imageId) {
+    const [rows] = await db.execute(
+      `SELECT ${imageFields}
+       FROM note_images
+       JOIN notes ON notes.id = note_images.note_id
+       LEFT JOIN note_shares
+         ON note_shares.note_id = notes.id
+        AND note_shares.shared_with_user_id = ?
+        AND note_shares.permission = 'edit'
+       WHERE note_images.id = ?
+         AND (notes.user_id = ? OR note_shares.id IS NOT NULL)
+       LIMIT 1`,
+      [userId, imageId, userId]
+    );
+    return rows[0];
+  },
+
+  async remove(imageId) {
+    const [result] = await db.execute(
+      'DELETE FROM note_images WHERE id = ?',
+      [imageId]
+    );
+    return result.affectedRows > 0;
+  },
 };
 
 module.exports = imageModel;

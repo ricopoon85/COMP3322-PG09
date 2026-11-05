@@ -67,6 +67,26 @@
   transform: scale(1.5);
 }
 
+.noteImage {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: var(--space-md) 0;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.noteImageSelected {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.imageError {
+  margin: 0;
+  color: var(--color-danger, #b91c1c);
+  font-size: 0.9rem;
+}
+
 .searchHighlight {
   background-color: var(--hl-yellow);
   color: inherit;

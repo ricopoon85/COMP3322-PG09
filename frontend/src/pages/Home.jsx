@@ -232,6 +232,7 @@ export default function Home() {
       setSelectedNote((previous) =>
         previous?.id === id ? noteToStore : previous
       );
+      return noteToStore;
     } catch (requestError) {
       handleRequestError(requestError);
     } finally {
