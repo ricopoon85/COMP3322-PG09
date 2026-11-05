@@ -98,14 +98,14 @@ test('protects notes API and supports CRUD', async () => {
 
   const created = await request('/notes', {
     method: 'POST',
-    headers: auth(alice.token),
+    headers: { ...auth(alice.token), 'Content-Type': 'application/json' },
     body: JSON.stringify({ title: 'Private note', content: 'alpha beta' }),
   });
   assert.equal(created.response.status, 201);
   alicePrivateNoteId = created.body.data.id;
 
   const listed = await request('/notes?search=beta', {
-    headers: auth(alice.token),
+    headers: { ...auth(alice.token), 'Content-Type': 'application/json' },
   });
   assert.equal(listed.response.status, 200);
   assert.equal(listed.body.data.length, 1);
@@ -154,6 +154,38 @@ test('imports text and rejects unsupported files', async () => {
     }),
   });
   assert.equal(rejected.response.status, 400);
+});
+
+test('uploads and serves note images only to authorized users', async () => {
+  const uploadedResponse = await fetch(
+    `${baseUrl}/notes/${alicePrivateNoteId}/images`,
+    {
+      method: 'POST',
+      headers: { ...auth(alice.token), 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        filename: 'diagram.png',
+        mimeType: 'image/png',
+        content: Buffer.from('test image').toString('base64'),
+      }),
+    }
+  );
+  const uploaded = await uploadedResponse.json();
+  assert.equal(uploadedResponse.status, 201);
+  assert.equal(uploaded.data.mime_type, 'image/png');
+  assert.match(uploaded.data.url, /^\/api\/images\/\d+$/);
+
+  const imageResponse = await fetch(`${baseUrl.replace('/api', '')}${uploaded.data.url}`, {
+    headers: auth(alice.token),
+  });
+  assert.equal(imageResponse.status, 200);
+  assert.equal(imageResponse.headers.get('content-type'), 'image/png');
+  assert.equal(Buffer.from(await imageResponse.arrayBuffer()).toString(), 'test image');
+
+  const unauthorizedResponse = await fetch(
+    `${baseUrl.replace('/api', '')}${uploaded.data.url}`,
+    { headers: auth(bob.token) }
+  );
+  assert.equal(unauthorizedResponse.status, 404);
 });
 
 test('shares notes with view and edit permissions', async () => {

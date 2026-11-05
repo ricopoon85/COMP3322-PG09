@@ -6,14 +6,17 @@ const db = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
 const noteRoutes = require('./routes/noteRoutes');
 const shareRoutes = require('./routes/shareRoutes');
+const authMiddleware = require('./middleware/authMiddleware');
 const errorHandler = require('./middleware/errorHandler');
+const imageController = require('./controllers/imageController');
 
 const app = express();
 
 app.use(cors());
-app.use(express.json({ limit: '2mb' }));
+app.use(express.json({ limit: '8mb' }));
 app.use('/api/auth', authRoutes);
 app.use('/api/notes', noteRoutes);
+app.get('/api/images/:id', authMiddleware, imageController.getImage);
 app.use('/api/shared-notes', shareRoutes);
 app.get('/api/health', async (req, res, next) => {
   try {

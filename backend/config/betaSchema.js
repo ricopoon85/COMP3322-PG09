@@ -2,6 +2,18 @@ const db = require('./db');
 
 async function ensureBetaSchema() {
   await db.execute(`
+    CREATE TABLE IF NOT EXISTS note_images (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      note_id INT NOT NULL,
+      storage_key VARCHAR(255) NOT NULL UNIQUE,
+      original_name VARCHAR(255) NOT NULL,
+      mime_type VARCHAR(50) NOT NULL,
+      byte_size INT UNSIGNED NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (note_id) REFERENCES notes(id) ON DELETE CASCADE
+    )
+  `);
+  await db.execute(`
     CREATE TABLE IF NOT EXISTS note_shares (
       id INT AUTO_INCREMENT PRIMARY KEY,
       note_id INT NOT NULL,

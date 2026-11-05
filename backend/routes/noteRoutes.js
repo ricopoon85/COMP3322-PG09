@@ -3,6 +3,7 @@ const authMiddleware = require('../middleware/authMiddleware');
 const noteController = require('../controllers/noteController');
 const importController = require('../controllers/importController');
 const shareController = require('../controllers/shareController');
+const imageController = require('../controllers/imageController');
 
 const router = express.Router();
 
@@ -10,6 +11,7 @@ router.use(authMiddleware);
 router.get('/', noteController.listNotes);
 router.post('/', noteController.createNote);
 router.post('/import', importController.importFile);
+router.post('/:id/images', imageController.uploadImage);
 router.get('/:id/shares', shareController.listShares);
 router.post('/:id/shares', shareController.createShare);
 router.patch('/:id/shares/:shareId', shareController.updateShare);

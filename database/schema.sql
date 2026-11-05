@@ -25,6 +25,19 @@ CREATE TABLE IF NOT EXISTS notes (
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
+-- Images embedded in notes
+
+CREATE TABLE IF NOT EXISTS note_images (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  note_id INT NOT NULL,
+  storage_key VARCHAR(255) NOT NULL UNIQUE,
+  original_name VARCHAR(255) NOT NULL,
+  mime_type VARCHAR(50) NOT NULL,
+  byte_size INT UNSIGNED NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (note_id) REFERENCES notes(id) ON DELETE CASCADE
+);
+
 -- Note collaborators table
 
 CREATE TABLE IF NOT EXISTS note_collaborators (

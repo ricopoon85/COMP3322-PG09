@@ -36,4 +36,5 @@
    `SHOW TABLES;`</br>
    `DESCRIBE users;`</br>
    `DESCRIBE notes;`</br>
+   `DESCRIBE note_images;`</br>
    If you see the tables, it means the schema is working.
